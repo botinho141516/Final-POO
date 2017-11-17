@@ -61,4 +61,8 @@ public class ControleEmprestimo {
     public void devolveExemplar(String text, String text0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public String checkAtrasos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

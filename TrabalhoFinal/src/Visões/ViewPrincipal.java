@@ -15,11 +15,11 @@ public class ViewPrincipal extends JFrame implements ActionListener{
     
     JMenuBar mb = new JMenuBar();
     JMenu sm = new JMenu("Paginas",true);
-    JMenuItem mAs = new JMenuItem("Associados");
+    JMenuItem mAs = new JMenuItem("Cadastrar Associado");
     JMenu mPu = new JMenu("Publicação");
     JMenuItem mPu1 = new JMenuItem("Cadastrar");
     JMenuItem mPu2 = new JMenuItem("Consultar");
-    JMenuItem mEx = new JMenuItem("Exemplar");
+    JMenuItem mEx = new JMenuItem("Cadastrar Exemplar");
     JMenu mEm = new JMenu("Emprestimo");
     JMenuItem mEm1 = new JMenuItem("Emprestar");
     JMenuItem mEm2 = new JMenuItem("Devolução");
@@ -27,9 +27,12 @@ public class ViewPrincipal extends JFrame implements ActionListener{
     JMenuItem mAt = new JMenuItem("Mostrar Atrasos");
     JPanel main = new JPanel(new CardLayout());
     
+    JPanel atrasos = new JPanel();
+    
     public ViewPrincipal()
     {
         super("Biblioteca SC");
+        
         add(main);
         
         main.add(vAs.ViewCadastraAssociado());
@@ -38,6 +41,9 @@ public class ViewPrincipal extends JFrame implements ActionListener{
         main.add(vEx.ViewCadastraExemplar());
         main.add(vEm.ViewEmprestimo());
         main.add(vEm.ViewDevolucao());
+        main.add(atrasos);
+        
+        atrasos.add(new JLabel());
         
         mb.add(sm);
             sm.add(mAs);
@@ -51,6 +57,13 @@ public class ViewPrincipal extends JFrame implements ActionListener{
             sm.add(sep);
             sm.add(mAt);
         
+        mAs.addActionListener(this);
+        mPu1.addActionListener(this);
+        mPu2.addActionListener(this);
+        mEx.addActionListener(this);
+        mEm1.addActionListener(this);
+        mEm2.addActionListener(this);
+        mAt.addActionListener(this);
         
         setJMenuBar(mb);
         setVisible(true);
@@ -62,26 +75,25 @@ public class ViewPrincipal extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         CardLayout layout = (CardLayout) main.getLayout();
         
-        
         if(e.getSource() == mAs) {
-            layout.next(main);
+            layout.first(main); 
         }
         else if(e.getSource() == mPu1) {
-            layout.next(main);
+            layout.first(main);
             layout.next(main);
             
         } 
         else if(e.getSource() == mPu2) {
-            layout.next(main);
+            layout.first(main);
             layout.next(main);
             layout.next(main);
         
         }
         else if(e.getSource() == mEx) {
-            layout.next(main);
-            layout.next(main);
-            layout.next(main);
-            layout.next(main);
+            layout.last(main);
+            layout.previous(main);
+            layout.previous(main);
+            layout.previous(main);
             
         }
         else if(e.getSource() == mEm1) {
@@ -96,7 +108,6 @@ public class ViewPrincipal extends JFrame implements ActionListener{
         }
         else if(e.getSource() == mAt) {
             layout.last(main);
-            
         }
                             
     }

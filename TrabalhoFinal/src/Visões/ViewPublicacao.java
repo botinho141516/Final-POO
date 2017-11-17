@@ -11,34 +11,34 @@ public class ViewPublicacao implements ActionListener{
 
     ControlePublicacao cP;
     
-    JPanel main = new JPanel(new FlowLayout(1,5000,8));
-    
-    JTextField tIsbn = new JTextField(20);
-    JTextField tTitulo = new JTextField(20);
+    JTextField tIsbnC = new JTextField(20);
+    JTextField tTituloC = new JTextField(20);
+    JTextField tIsbnS = new JTextField(20);
+    JTextField tTituloS = new JTextField(20);
     JTextField tAutor = new JTextField(20);
     JTextField tEditora = new JTextField(20);
+    JLabel blank = new JLabel(" ");
+    JLabel blank1 = new JLabel(" ");
     JButton okBtn = new JButton("Cadastrar");
+    JButton searchButton = new JButton("Buscar");
     public ViewPublicacao() {
         cP = new ControlePublicacao(this);
     }
     
     public JPanel ViewCadastraPublicacao()
     {
-        JLabel isbn = new JLabel("Código");
-        JLabel titulo = new JLabel("Título");
-        JLabel autor = new JLabel("Autor");
-        JLabel editora = new JLabel("Editora");
-        JLabel blank = new JLabel(" ");
+        JPanel main = new JPanel(new FlowLayout(1,5000,8));
+      
         
-        main.add(isbn);
-        main.add(tIsbn);
-        main.add(titulo);
-        main.add(tTitulo);
-        main.add(autor);
+        main.add(new JLabel("Código"));
+        main.add(tIsbnC);
+        main.add(new JLabel("Título"));
+        main.add(tTituloC);
+        main.add(new JLabel("Autor"));
         main.add(tAutor);
-        main.add(editora);
+        main.add(new JLabel("Editora"));
         main.add(tEditora);
-        main.add(blank);
+        main.add(blank1);
         main.add(okBtn);
         
         okBtn.addActionListener(this);
@@ -50,22 +50,14 @@ public class ViewPublicacao implements ActionListener{
     
     public JPanel ViewConsultarPublicacao()
     {
-        JLabel isbn = new JLabel("Código");
-        JLabel titulo = new JLabel("Título");
-        JLabel autor = new JLabel("Autor");
-        JLabel editora = new JLabel("Editora");
-        JLabel blank = new JLabel(" ");
-        
-        main.add(isbn);
-        main.add(tIsbn);
-        main.add(titulo);
-        main.add(tTitulo);
-        main.add(autor);
-        main.add(tAutor);
-        main.add(editora);
-        main.add(tEditora);
+        JPanel main = new JPanel(new FlowLayout(1,5000,8));
+       
+        main.add(new JLabel("ISBN"));
+        main.add(tIsbnS);
+        main.add(new JLabel("Título"));
+        main.add(tTituloS);
         main.add(blank);
-        main.add(okBtn);
+        main.add(searchButton);
         
         okBtn.addActionListener(this);
         
@@ -80,12 +72,35 @@ public class ViewPublicacao implements ActionListener{
         if(e.getSource() == okBtn)
         {
             try {
-                int id = Integer.parseInt(tIsbn.getText());
-                cP.cadastraPublicacao(id,tTitulo.getText(),tTitulo.getText(),tAutor.getText(),tEditora.getText());
+                int id = Integer.parseInt(tIsbnC.getText());
+                cP.cadastraPublicacao(id,tTituloC.getText(),tAutor.getText(),tEditora.getText());
                 
             }catch(Exception ex)
             {
-                JOptionPane.showMessageDialog(main,"O campo ISBN deve ser um numero inteiro");
+                JOptionPane.showMessageDialog(null,"O campo ISBN deve ser um numero inteiro");
+            }
+        }
+        else if(e.getSource() == searchButton)
+        {
+            if("".equals(tIsbnS.getText()))
+            {
+                cP.searchPublicacao(tTituloS.getText());
+            }
+            else if("".equals(tTituloS.getText()))
+            {
+                try {
+                    int id = Integer.parseInt(tIsbnS.getText());
+                    cP.searchPublicacao(id);
+
+                }catch(Exception ex)
+                {
+                    JOptionPane.showMessageDialog(null,"O campo ISBN deve ser um numero inteiro");
+                }
+                
+            }
+            else if("".equals(tIsbnS.getText()) && "".equals(tTituloS.getText()))
+            {
+                JOptionPane.showMessageDialog(null,"Algum dos parametros de pesquisa devem ser preenchidos");
             }
         }
         
