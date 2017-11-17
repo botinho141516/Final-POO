@@ -9,4 +9,8 @@ package Controles;
 
 public class ControleExemplar {
 
+    public void cadastraExemplar(int id, int numero, int preco) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
