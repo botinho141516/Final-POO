@@ -15,9 +15,9 @@ public class ControleEmprestimo {
     
     ViewEmprestimo vE;
     
-    public ControleEmprestimo()
+    public ControleEmprestimo(ViewEmprestimo view)
     {
-        //vE = new ViewEmprestimo(this);
+        vE = view;
     }
     
     public Date checkDate(String pData)
@@ -47,6 +47,18 @@ public class ControleEmprestimo {
     }
 
     public void cadastraExemplar(int id, int isbn, Date data) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void checkIsbn(String text) throws Exception{
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void checkID(String text) throws Exception{
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void devolveExemplar(String text, String text0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

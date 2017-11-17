@@ -18,6 +18,9 @@ public class ViewPublicacao implements ActionListener{
     JTextField tAutor = new JTextField(20);
     JTextField tEditora = new JTextField(20);
     JButton okBtn = new JButton("Cadastrar");
+    public ViewPublicacao() {
+        cP = new ControlePublicacao(this);
+    }
     
     public JPanel ViewCadastraPublicacao()
     {
@@ -40,9 +43,33 @@ public class ViewPublicacao implements ActionListener{
         
         okBtn.addActionListener(this);
         
+        main.setSize(400,400);
+        
+        return main;
+    }
+    
+    public JPanel ViewConsultarPublicacao()
+    {
+        JLabel isbn = new JLabel("Código");
+        JLabel titulo = new JLabel("Título");
+        JLabel autor = new JLabel("Autor");
+        JLabel editora = new JLabel("Editora");
+        JLabel blank = new JLabel(" ");
+        
+        main.add(isbn);
+        main.add(tIsbn);
+        main.add(titulo);
+        main.add(tTitulo);
+        main.add(autor);
+        main.add(tAutor);
+        main.add(editora);
+        main.add(tEditora);
+        main.add(blank);
+        main.add(okBtn);
+        
+        okBtn.addActionListener(this);
         
         main.setSize(400,400);
-        main.setVisible(true);
         
         return main;
     }

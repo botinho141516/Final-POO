@@ -18,6 +18,10 @@ public class ViewExemplar implements ActionListener{
     JTextField tPreco = new JTextField(10);
     JButton okBtn = new JButton("Cadastrar");
     
+    public ViewExemplar() {
+        cE = new ControleExemplar(this);
+    }
+    
     public JPanel ViewCadastraExemplar()
     {
         
@@ -37,9 +41,7 @@ public class ViewExemplar implements ActionListener{
         
         okBtn.addActionListener(this);
         
-        
         main.setSize(400,400);
-        main.setVisible(true);
         
         return main;
     }

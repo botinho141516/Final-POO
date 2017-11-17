@@ -10,6 +10,7 @@ import javax.swing.*;
 public class ViewAssociado implements ActionListener {
     
     ControleAssociado cA;
+    
     String[] optStatus = {
         
         " Aluno Graduação ",
@@ -25,9 +26,14 @@ public class ViewAssociado implements ActionListener {
     JComboBox tStatus = new JComboBox(optStatus);
     JButton okBtn = new JButton("Cadastrar");
     
-    public JPanel ViewCadastraAssociado(ControleAssociado ctrl)
+    public ViewAssociado()
     {
-        cA = ctrl;
+        cA = new ControleAssociado(this);
+        
+    }
+    
+    public JPanel ViewCadastraAssociado()
+    {
         
         JLabel id = new JLabel("Código");
         JLabel name = new JLabel("Nome");
@@ -58,8 +64,6 @@ public class ViewAssociado implements ActionListener {
         
         
         
-        main.setSize(400,400);
-        main.setVisible(true);
         
         return main;
     }
