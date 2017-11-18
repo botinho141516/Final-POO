@@ -67,7 +67,7 @@ public class ControlePublicacao {
     }
 
     public void checkId(int id) { //checa se publicação com id ja existe
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     public String showPublicacao(String text) {

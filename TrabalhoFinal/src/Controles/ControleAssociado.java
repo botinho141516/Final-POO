@@ -5,6 +5,7 @@ import Visões.ViewAssociado;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 public class ControleAssociado {
 
@@ -13,10 +14,15 @@ public class ControleAssociado {
 
     public ControleAssociado(ViewAssociado view) {
         vA = view;
-        es();
+        try {
+            es();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao abrir");
+        }
+        
     }
 
-    public void serializaAssociados() {
+    public void serializaAssociados() throws Exception {
         try {
             FileOutputStream objFileOS = new FileOutputStream("Associados.dat");
             ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
@@ -24,11 +30,11 @@ public class ControleAssociado {
             objOS.flush();
             objOS.close();
         } catch (Exception e) {
-
+                throw new Exception();
         }
     }
 
-    public void es() {
+    public void es() throws Exception {
 
         try {
             File objFile = new File("Associados.dat");
@@ -41,13 +47,18 @@ public class ControleAssociado {
                 objIS.close();
             }
              } catch (Exception e) {
-
+                 throw new Exception();
         }
     }
 
     public void cadastraAsssociado(int id, String text, String text0, String text1, String toString) {
         Associados.add(new Associado(id, text, text0, text1, toString));
-        serializaAssociados();
+       try{
+            serializaAssociados();
+        } catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null,"Erro ao serializar");
+        }
     }
 
     public void checkIdAssociado(int id) throws Exception{ //checa se o ID ja esta cadastrado
@@ -55,7 +66,7 @@ public class ControleAssociado {
         {
             Associado a = (Associado) Associados.get(i);
             if(a.getCodigo() == id)
+                throw new Exception();
         }
     }
-
 }
