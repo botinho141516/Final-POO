@@ -38,6 +38,7 @@ public class ControlePublicacao {
         return achou;
     }
     
+    
     public void serializaPublicacoes() {
 
         try {
@@ -59,6 +60,14 @@ public class ControlePublicacao {
     }
 
     public void checkId(int id) { //checa se publicação com id ja existe
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String showPublicacao(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String showPublicacao(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
