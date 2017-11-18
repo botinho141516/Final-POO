@@ -3,10 +3,11 @@ package Controles;
 import Entidades.Exemplar;
 import Entidades.Publicacao;
 import Visões.ViewEmprestimo;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ControleEmprestimo {
+public class ControleEmprestimo implements Serializable{
 
     ControlePublicacao ctrlpub;
     ViewEmprestimo vE;

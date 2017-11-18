@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
-public class ControleAssociado {
+public class ControleAssociado implements Serializable{
 
     ViewAssociado vA;
     private ArrayList<Associado> Associados = new ArrayList();
