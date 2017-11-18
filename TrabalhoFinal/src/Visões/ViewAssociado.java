@@ -82,13 +82,13 @@ public class ViewAssociado implements ActionListener {
                     int id = Integer.parseInt(tId.getText());
                     try{
                         cA.checkIdAssociado(id);
+                        cA.cadastraAsssociado(id,tName.getText(),tEnd.getText(),tEmail.getText(),tStatus.getSelectedItem().toString());
+                        JOptionPane.showMessageDialog(null,"Associado cadastrado com sucesso");
                         
                     }catch(Exception ex)
                     {
                         JOptionPane.showMessageDialog(null,"Id já cadastrado");
                     }
-                    cA.cadastraAsssociado(id,tName.getText(),tEnd.getText(),tEmail.getText(),tStatus.getSelectedItem().toString());
-                    JOptionPane.showMessageDialog(null,"Associado cadastrado com sucesso");
                 }catch(Exception ex)
                 {
                     JOptionPane.showMessageDialog(main,"O campo ID deve ser um numero inteiro");

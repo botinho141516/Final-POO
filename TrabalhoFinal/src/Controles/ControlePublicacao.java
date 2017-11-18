@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 
@@ -29,17 +30,17 @@ public class ControlePublicacao {
     public void cadastraPublicacao(int id, String text0, String text1, String text2) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public boolean searchPublicacao(String titulo) {//procura por titulo
+    public boolean searchPublicacao(String titulo) {    //procura por titulo
         boolean achou = false;
         return achou;
     }
-    public boolean searchPublicacao(int id) {//procura por isbn
+    public boolean searchPublicacao(int id) {   //procura por isbn
         boolean achou = false;
         return achou;
     }
     
     
-    public void serializaPublicacoes() {
+    public void serializaPublicacoes() throws Exception {
 
         try {
             File objFile = new File("Publicacoes.dat");
@@ -49,14 +50,20 @@ public class ControlePublicacao {
                 Publicacoes = (ArrayList) objIS.readObject();
                 objIS.close();
             }
-             } catch (Exception e) {
-
+            } catch (Exception e) {
+                throw new Exception();
         }
     }
     
     public void cadastraPublicacao(int id, String text, String text0, String text1, String text2) {
         Publicacoes.add(new Publicacao(id, text, text0, text1));
-        serializaPublicacoes();
+        try {
+            serializaPublicacoes();
+            
+        } catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null,"Erro ao serializar");
+        }
     }
 
     public void checkId(int id) { //checa se publicação com id ja existe

@@ -74,8 +74,13 @@ public class ViewEmprestimo implements ActionListener {
     }
 
     public JLabel ViewAtrasos() {
-
-        return new JLabel(cE.checkAtrasos());
+        try {
+            return new JLabel(cE.checkAtrasos());
+            
+        } catch(Exception ex)
+        {
+        }
+        return null;
 
     }
 
