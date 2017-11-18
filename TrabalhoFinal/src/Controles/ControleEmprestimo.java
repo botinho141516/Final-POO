@@ -20,7 +20,7 @@ public class ControleEmprestimo {
         vE = view;
     }
 
-    public Date checkDate(String pData) {
+    public Date checkDate(String pData) throws Exception{
 
         String test = pData;
         String format = "dd/MM/yyyy";
@@ -36,11 +36,11 @@ public class ControleEmprestimo {
             }
         } catch (Exception ex) {
 
-            return null;
+            throw new Exception();
         }
     }
 
-    public void cadastraExemplar(int id, int isbn, Date data) {
+    public void cadastraExemplar(int id, int isbn, Date data) throws Exception{
         Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
@@ -77,7 +77,7 @@ public class ControleEmprestimo {
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
             Exemplar e;
-            if ((text) == pu.getTitulo()) {
+            if (text.equals(pu.getTitulo())) {
                 for (int j = 0; j < pu.getExemplares().size(); j++) {
                     e = (Exemplar) pu.getExemplares().get(j);
                     if (e.getFlag() == 1) {
@@ -90,11 +90,11 @@ public class ControleEmprestimo {
         }
     }
 
-    public void devolveExemplar(String text, String text0) {
+    public void devolveExemplar(String text, String text0) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String checkAtrasos() {
+    public String checkAtrasos() throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

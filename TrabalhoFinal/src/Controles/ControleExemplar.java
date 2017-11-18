@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 /*
@@ -25,10 +26,16 @@ public class ControleExemplar {
 
     public ControleExemplar(ViewExemplar view) {
         vE = view;
-        es();
+        try {
+            es();
+            
+        }catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null,"Erro na deserialização");
+        }
     }
 
-    public void serializaExemplares() {
+    public void serializaExemplares() throws Exception{
         try {
             FileOutputStream objFileOS = new FileOutputStream("Exemplares.dat");
             ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
@@ -36,11 +43,11 @@ public class ControleExemplar {
             objOS.flush();
             objOS.close();
         } catch (Exception e) {
-
+            throw new Exception();
         }
     }
 
-    public void es() {
+    public void es() throws Exception{
 
         try {
             File objFile = new File("Exemplares.dat");
@@ -51,7 +58,7 @@ public class ControleExemplar {
                 objIS.close();
             }
         } catch (Exception e) {
-
+            throw new Exception();
         }
     }
 
@@ -60,9 +67,18 @@ public class ControleExemplar {
             Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
             if (id == pu.getISBN()) {
                 pu.getExemplares().add(new Exemplar(id, numero, preco, 0));
-                serializaExemplares();
+                try {
+                    serializaExemplares();
+                }catch(Exception ex)
+                {
+                    JOptionPane.showMessageDialog(null, "Erro na serialização");
+                }
             }
         }
+    }
+
+    public void checkId(int id) throws Exception {//procura se o ID que foi digitado realmente existe
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

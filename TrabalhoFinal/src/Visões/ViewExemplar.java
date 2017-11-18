@@ -59,9 +59,16 @@ public class ViewExemplar implements ActionListener{
             {
                 try {
                     int id = Integer.parseInt(tIsbn.getText());
+                    
+                    try{
+                        cE.checkId(id);
+                    } catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null,"ID digitado não cadastrado");
+                    }
                     int numero = Integer.parseInt(tNumero.getText());
                     int preco = Integer.parseInt(tPreco.getText());
-                    cE.cadastraExemplar(id,numero,preco);
+                    cE.cadastraExemplar(id,numero,preco); //A exception da aqui, inicializa a variavel ctrlpub no ControleExemplar
                 
                 }catch(Exception ex)
                 {

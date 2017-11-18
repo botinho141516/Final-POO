@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.swing.*;
 
 public class ViewEmprestimo implements ActionListener {
-    
+
     ControleEmprestimo cE;
 
     JTextField tIsbn = new JTextField(16);
@@ -16,9 +16,10 @@ public class ViewEmprestimo implements ActionListener {
     JTextField tData = new JTextField(16);
     JButton empBtn = new JButton("Emprestar");
     JButton devBtn = new JButton("Devolver");
+
     public ViewEmprestimo() {
         cE = new ControleEmprestimo(this);
-        
+
     }
 
     public JPanel ViewEmprestimo() {
@@ -27,7 +28,7 @@ public class ViewEmprestimo implements ActionListener {
 
         JLabel isbn = new JLabel("ISBN");
         JLabel id = new JLabel("ID do cliente ");
-        JLabel data = new JLabel("Data de Emprestimo");
+        JLabel data = new JLabel("Data do Emprestimo");
         JLabel blank = new JLabel(" ");
 
         main.add(isbn);
@@ -45,10 +46,10 @@ public class ViewEmprestimo implements ActionListener {
         return main;
 
     }
-    
+
     JTextField tIdD = new JTextField(16);
     JTextField tIsbnD = new JTextField(16);
-    
+
     public JPanel ViewDevolucao() {
 
         JPanel main = new JPanel(new FlowLayout(1, 5000, 8));
@@ -67,11 +68,11 @@ public class ViewEmprestimo implements ActionListener {
         devBtn.addActionListener(this);
 
         main.setSize(400, 400);
-        
+
         return main;
 
     }
-    
+
     public JLabel ViewAtrasos() {
 
         return new JLabel(cE.checkAtrasos());
@@ -83,31 +84,62 @@ public class ViewEmprestimo implements ActionListener {
 
         if (e.getSource() == empBtn)
         {
-            if("".equals(tIsbn.getText()) || "".equals(tId.getText()) || "".equals(tData.getText()))
-               JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos");
-            else
+            if ("".equals(tIsbn.getText()) || "".equals(tId.getText()) || "".equals(tData.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
+            } else
             {
                 try
                 {
                     int id = Integer.parseInt(tIsbn.getText());
                     int isbn = Integer.parseInt(tIsbn.getText());
 
-                    Date data = cE.checkDate(tData.getText());
-                    cE.cadastraExemplar(id, isbn, data);
+                    try
+                    {
+                        Date data = cE.checkDate(tData.getText());
+
+                        try
+                        {
+                            cE.checkID(tId.getText());
+                            try
+                            {
+                                cE.checkIsbn(tIsbn.getText());
+                                try
+                                {
+                                    cE.cadastraExemplar(id, isbn, data);
+                                } catch (Exception ex)
+                                {
+                                    JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");
+                                }
+
+                            } catch (Exception ex)
+                            {
+                                JOptionPane.showMessageDialog(null, "ID não cadastrado");
+                            }
+
+                        } catch (Exception ex)
+                        {
+                            JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
+                        }
+
+                    } catch (Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, "Data deve estar no formato dd/mm/aaaa");
+                    }
 
                 } catch (Exception x)
                 {
                     JOptionPane.showMessageDialog(null, "ID e ISBN devem ser numeros inteiros");
                 }
             }
-            
+
         } else if (e.getSource() == devBtn)
         {
-            if("".equals(tIsbnD.getText()) || "".equals(tIdD.getText()))
-               JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos");
-            else
+            if ("".equals(tIsbnD.getText()) || "".equals(tIdD.getText()))
             {
-                
+                JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
+            } else
+            {
                 try
                 {
                     cE.checkIsbn(tIsbnD.getText());
@@ -118,20 +150,13 @@ public class ViewEmprestimo implements ActionListener {
 
                         try
                         {
-                            cE.checkIsbn(tIsbnD.getText());
-                            try
-                            {
-                                cE.devolveExemplar(tIsbnD.getText(),tIdD.getText());
-                                JOptionPane.showMessageDialog(null,"Devolução Registrada");
-                            }catch(Exception x)
-                            {
-                                JOptionPane.showMessageDialog(null,"Devolução Falhou");
-                            }
-
+                            cE.devolveExemplar(tIsbnD.getText(), tIdD.getText());
+                            JOptionPane.showMessageDialog(null, "Devolução Registrada");
                         } catch (Exception x)
                         {
-                            JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
+                            JOptionPane.showMessageDialog(null, "problema no back trocar para (Devolução falhou) linha 157");
                         }
+
 
                     } catch (Exception x)
                     {
@@ -140,7 +165,7 @@ public class ViewEmprestimo implements ActionListener {
 
                 } catch (Exception x)
                 {
-                    JOptionPane.showMessageDialog(null, "Exemplar não cadastrado");
+                    JOptionPane.showMessageDialog(null, "ID do exemplar não cadastrado");
                 }
 
             }
