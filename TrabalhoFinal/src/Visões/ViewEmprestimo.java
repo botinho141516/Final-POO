@@ -75,6 +75,16 @@ public class ViewEmprestimo implements ActionListener {
 
     }
 
+<<<<<<< HEAD
+    public JLabel ViewAtrasos() {
+        try {
+            return new JLabel(cE.checkAtrasos());
+            
+        } catch(Exception ex)
+        {
+        }
+        return null;
+=======
     /*public JLabel ViewAtrasos() {
 
         try {   
@@ -82,6 +92,7 @@ public class ViewEmprestimo implements ActionListener {
         } catch (Exception ex) {
             Logger.getLogger(ViewEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
         }
+>>>>>>> 0a4b248e007088e3950713636a5136b00802b56c
 
     }*/
 
