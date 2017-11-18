@@ -8,7 +8,7 @@ public class Associado {
     private String email;
     private String status;
 
-    private Associado(int codigo, String name, String endereco, String email, String status) {
+    public Associado(int codigo, String name, String endereco, String email, String status) {
         this.codigo = codigo;
         this.name = name;
         this.endereco = endereco;
