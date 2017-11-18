@@ -69,28 +69,54 @@ public class ViewPublicacao implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         
+        
         if(e.getSource() == okBtn)
         {
-            try {
-                int id = Integer.parseInt(tIsbnC.getText());
-                cP.cadastraPublicacao(id,tTituloC.getText(),tAutor.getText(),tEditora.getText());
-                
-            }catch(Exception ex)
+            if("".equals(tIsbnC.getText()) || "".equals(tTituloC.getText()) || "".equals(tAutor.getText()) || "".equals(tEditora.getText()))
+                JOptionPane.showMessageDialog(null,"Todos os campos devem estar preenchidos");
+            else
             {
-                JOptionPane.showMessageDialog(null,"O campo ISBN deve ser um numero inteiro");
+                try {
+                    int id = Integer.parseInt(tIsbnC.getText());
+                    
+                    try {
+                        cP.checkId(id);
+                    }catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null,"Publicação com esse id ja cadastrada");
+                    }
+                    cP.cadastraPublicacao(id,tTituloC.getText(),tAutor.getText(),tEditora.getText());
+
+                }catch(Exception ex)
+                {
+                    JOptionPane.showMessageDialog(null,"O campo ISBN deve ser um numero inteiro");
+                }
+                    
             }
         }
         else if(e.getSource() == searchButton)
         {
+
             if("".equals(tIsbnS.getText()))
             {
-                cP.searchPublicacao(tTituloS.getText());
+                if(cP.searchPublicacao(tTituloS.getText()))
+                    JOptionPane.showMessageDialog(null,cP.showPublicacao(tTituloS.getText()));
+
+                else
+                    JOptionPane.showMessageDialog(null,"Pubicação com esse título não encontrada");
+
             }
             else if("".equals(tTituloS.getText()))
             {
                 try {
                     int id = Integer.parseInt(tIsbnS.getText());
-                    cP.searchPublicacao(id);
+
+                    
+                    if(cP.searchPublicacao(id))
+                        JOptionPane.showMessageDialog(null,cP.showPublicacao(id));
+
+                else
+                    JOptionPane.showMessageDialog(null,"Pubicação com esse ISBN não encontrada");
 
                 }catch(Exception ex)
                 {
@@ -101,6 +127,11 @@ public class ViewPublicacao implements ActionListener{
             else if("".equals(tIsbnS.getText()) && "".equals(tTituloS.getText()))
             {
                 JOptionPane.showMessageDialog(null,"Algum dos parametros de pesquisa devem ser preenchidos");
+            }
+            else
+            {
+                if(cP.searchPublicacao(tTituloS.getText()))
+                    JOptionPane.showMessageDialog(null,cP.showPublicacao(tTituloS.getText()));
             }
         }
         

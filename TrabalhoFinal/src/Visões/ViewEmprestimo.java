@@ -83,55 +83,67 @@ public class ViewEmprestimo implements ActionListener {
 
         if (e.getSource() == empBtn)
         {
-            try
+            if("".equals(tIsbn.getText()) || "".equals(tId.getText()) || "".equals(tData.getText()))
+               JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos");
+            else
             {
-                int id = Integer.parseInt(tIsbn.getText());
-                int isbn = Integer.parseInt(tIsbn.getText());
-
-                Date data = cE.checkDate(tData.getText());
-                cE.cadastraExemplar(id, isbn, data);
-
-            } catch (Exception x)
-            {
-                JOptionPane.showMessageDialog(null, "ID e ISBN devem ser numeros inteiros");
-            }
-        } else if (e.getSource() == devBtn)
-        {
-            try
-            {
-                cE.checkIsbn(tIsbnD.getText());
-
                 try
                 {
-                    cE.checkID(tIdD.getText());
+                    int id = Integer.parseInt(tIsbn.getText());
+                    int isbn = Integer.parseInt(tIsbn.getText());
+
+                    Date data = cE.checkDate(tData.getText());
+                    cE.cadastraExemplar(id, isbn, data);
+
+                } catch (Exception x)
+                {
+                    JOptionPane.showMessageDialog(null, "ID e ISBN devem ser numeros inteiros");
+                }
+            }
+            
+        } else if (e.getSource() == devBtn)
+        {
+            if("".equals(tIsbnD.getText()) || "".equals(tIdD.getText()))
+               JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos");
+            else
+            {
+                
+                try
+                {
+                    cE.checkIsbn(tIsbnD.getText());
 
                     try
                     {
-                        cE.checkIsbn(tIsbnD.getText());
+                        cE.checkID(tIdD.getText());
+
                         try
                         {
-                            cE.devolveExemplar(tIsbnD.getText(),tIdD.getText());
-                            JOptionPane.showMessageDialog(null,"Devolução Registrada");
-                        }catch(Exception x)
+                            cE.checkIsbn(tIsbnD.getText());
+                            try
+                            {
+                                cE.devolveExemplar(tIsbnD.getText(),tIdD.getText());
+                                JOptionPane.showMessageDialog(null,"Devolução Registrada");
+                            }catch(Exception x)
+                            {
+                                JOptionPane.showMessageDialog(null,"Devolução Falhou");
+                            }
+
+                        } catch (Exception x)
                         {
-                            JOptionPane.showMessageDialog(null,"Devolução Falhou");
+                            JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
                         }
-                        
+
                     } catch (Exception x)
                     {
-                        JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
+                        JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
                     }
-                    
+
                 } catch (Exception x)
                 {
-                    JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
+                    JOptionPane.showMessageDialog(null, "Exemplar não cadastrado");
                 }
-                    
-            } catch (Exception x)
-            {
-                JOptionPane.showMessageDialog(null, "Exemplar não cadastrado");
-            }
 
+            }
         }
 
     }

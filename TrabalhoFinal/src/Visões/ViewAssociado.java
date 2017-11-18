@@ -73,16 +73,27 @@ public class ViewAssociado implements ActionListener {
         
         if(e.getSource() == okBtn)
         {
-            try {
-                int id = Integer.parseInt(tId.getText());
-                cA.cadastraAsssociado(id,tName.getText(),tEnd.getText(),tEmail.getText(),tStatus.getSelectedItem().toString());
-                
-            }catch(Exception ex)
+            
+            if("".equals(tId.getText()) || "".equals(tName.getText()) || "".equals(tEnd.getText()) || "".equals(tEmail.getText()) || "Status".equals(tStatus.getSelectedItem().toString()))
+                JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos");
+            else
             {
-                JOptionPane.showMessageDialog(main,"O campo ID deve ser um numero inteiro");
+                try {
+                    int id = Integer.parseInt(tId.getText());
+                    try{
+                        cA.checkIdAssociado(id);
+                        
+                    }catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null,"Id já cadastrado");
+                    }
+                    cA.cadastraAsssociado(id,tName.getText(),tEnd.getText(),tEmail.getText(),tStatus.getSelectedItem().toString());
+                    JOptionPane.showMessageDialog(null,"Associado cadastrado com sucesso");
+                }catch(Exception ex)
+                {
+                    JOptionPane.showMessageDialog(main,"O campo ID deve ser um numero inteiro");
+                }
             }
         }
-        
     }
-
 }

@@ -29,11 +29,13 @@ public class ControlePublicacao {
     public void cadastraPublicacao(int id, String text0, String text1, String text2) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public void searchPublicacao(String titulo) {
-        
+    public boolean searchPublicacao(String titulo) {//procura por titulo
+        boolean achou = false;
+        return achou;
     }
-    public void searchPublicacao(int id) {
-        
+    public boolean searchPublicacao(int id) {//procura por isbn
+        boolean achou = false;
+        return achou;
     }
     
     public void serializaPublicacoes() {
@@ -54,6 +56,10 @@ public class ControlePublicacao {
     public void cadastraPublicacao(int id, String text, String text0, String text1, String text2) {
         Publicacoes.add(new Publicacao(id, text, text0, text1));
         serializaPublicacoes();
+    }
+
+    public void checkId(int id) { //checa se publicação com id ja existe
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

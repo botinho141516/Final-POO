@@ -51,15 +51,22 @@ public class ViewExemplar implements ActionListener{
         
         if(e.getSource() == okBtn)
         {
-            try {
-                int id = Integer.parseInt(tIsbn.getText());
-                int numero = Integer.parseInt(tNumero.getText());
-                int preco = Integer.parseInt(tPreco.getText());
-                cE.cadastraExemplar(id,numero,preco);
-                
-            }catch(Exception ex)
+            
+            if("".equals(tIsbn.getText()) || "".equals(tNumero.getText()) || "".equals(tPreco.getText()))
+                JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos");
+            
+            else
             {
-                JOptionPane.showMessageDialog(main,"Todos os campos devem ser numeros inteiros");
+                try {
+                    int id = Integer.parseInt(tIsbn.getText());
+                    int numero = Integer.parseInt(tNumero.getText());
+                    int preco = Integer.parseInt(tPreco.getText());
+                    cE.cadastraExemplar(id,numero,preco);
+                
+                }catch(Exception ex)
+                {
+                    JOptionPane.showMessageDialog(main,"Todos os campos devem ser numeros inteiros");
+                }
             }
         }
         

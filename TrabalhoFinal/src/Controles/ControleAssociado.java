@@ -50,4 +50,8 @@ public class ControleAssociado {
         serializaAssociados();
     }
 
+    public void checkIdAssociado(int id) throws Exception{ //checa se o ID ja esta cadastrado
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
