@@ -81,6 +81,7 @@ public class ViewEmprestimo implements ActionListener {
             
         } catch(Exception ex)
         {
+            
         }
         return null;
     }

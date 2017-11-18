@@ -1,8 +1,9 @@
 package Entidades;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Publicacao {
+public class Publicacao implements Serializable{
 
     private int ISBN;
     private String titulo;

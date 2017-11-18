@@ -4,10 +4,9 @@ import Entidades.Associado;
 import Visões.ViewAssociado;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 
-public class ControleAssociado {
+public class ControleAssociado implements Serializable{
 
     ViewAssociado vA;
     private ArrayList<Associado> Associados = new ArrayList();
@@ -42,17 +41,17 @@ public class ControleAssociado {
                 FileInputStream objFileIS = new FileInputStream("Associados.dat");
                 ObjectInputStream objIS = new ObjectInputStream(objFileIS);
                 Associados = (ArrayList) objIS.readObject();
-                //System.out.println(lista.size());
 
                 objIS.close();
             }
              } catch (Exception e) {
+                 e.printStackTrace();
                  throw new Exception();
         }
     }
 
     public void cadastraAsssociado(int id, String text, String text0, String text1, String toString) {
-        Associados.add(new Associado(id, text, text0, text1, toString));
+       Associados.add(new Associado(id, text, text0, text1, toString));
        try{
             serializaAssociados();
         } catch(Exception ex)

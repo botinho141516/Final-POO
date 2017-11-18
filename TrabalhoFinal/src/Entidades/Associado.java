@@ -1,6 +1,7 @@
 package Entidades;
+import java.io.Serializable;
 
-public class Associado {
+public class Associado implements Serializable{
 
     private int codigo;
     private String name;
