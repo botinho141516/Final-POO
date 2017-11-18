@@ -14,14 +14,14 @@ public class ControleAssociado implements Serializable{
     public ControleAssociado(ViewAssociado view) {
         vA = view;
         try {
-            es();
+            serializaAssociados();
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao abrir");
         }
         
     }
 
-    public void serializaAssociados() throws Exception {
+    public void deserializaAssociados() throws Exception {
         try {
             FileOutputStream objFileOS = new FileOutputStream("Associados.dat");
             ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
@@ -33,7 +33,7 @@ public class ControleAssociado implements Serializable{
         }
     }
 
-    public void es() throws Exception {
+    public void serializaAssociados() throws Exception {
 
         try {
             File objFile = new File("Associados.dat");
@@ -53,7 +53,7 @@ public class ControleAssociado implements Serializable{
     public void cadastraAsssociado(int id, String text, String text0, String text1, String toString) {
        Associados.add(new Associado(id, text, text0, text1, toString));
        try{
-            serializaAssociados();
+            deserializaAssociados();
         } catch(Exception ex)
         {
             JOptionPane.showMessageDialog(null,"Erro ao serializar");
