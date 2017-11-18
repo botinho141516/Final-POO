@@ -51,7 +51,11 @@ public class ControleAssociado {
     }
 
     public void checkIdAssociado(int id) throws Exception{ //checa se o ID ja esta cadastrado
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int i = 0; i < Associados.size(); i++)
+        {
+            Associado a = (Associado) Associados.get(i);
+            if(a.getCodigo() == id)
+        }
     }
 
 }

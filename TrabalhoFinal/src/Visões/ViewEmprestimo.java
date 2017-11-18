@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class ViewEmprestimo implements ActionListener {
@@ -73,6 +75,7 @@ public class ViewEmprestimo implements ActionListener {
 
     }
 
+<<<<<<< HEAD
     public JLabel ViewAtrasos() {
         try {
             return new JLabel(cE.checkAtrasos());
@@ -81,8 +84,17 @@ public class ViewEmprestimo implements ActionListener {
         {
         }
         return null;
+=======
+    /*public JLabel ViewAtrasos() {
 
-    }
+        try {   
+            return new JLabel(cE.checkAtrasos());
+        } catch (Exception ex) {
+            Logger.getLogger(ViewEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+>>>>>>> 0a4b248e007088e3950713636a5136b00802b56c
+
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
