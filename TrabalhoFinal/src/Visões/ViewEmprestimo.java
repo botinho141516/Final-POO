@@ -76,16 +76,17 @@ public class ViewEmprestimo implements ActionListener {
     }
 
     public JLabel ViewAtrasos() {
-        try {
-            return new JLabel(cE.checkAtrasos());
-            
-        } catch(Exception ex)
+        try
         {
-            
+            return new JLabel(cE.checkAtrasos());
+
+        } catch (Exception ex)
+        {
+
         }
         return null;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -107,10 +108,10 @@ public class ViewEmprestimo implements ActionListener {
 
                         try
                         {
-                            cE.checkID(tId.getText());
+                            cE.checkID(id);
                             try
                             {
-                                cE.checkIsbn(tIsbn.getText());
+                                cE.checkIsbn(isbn);
                                 try
                                 {
                                     cE.cadastraExemplar(id, isbn, data);
@@ -149,40 +150,39 @@ public class ViewEmprestimo implements ActionListener {
             {
                 try
                 {
-                    cE.checkIsbn(tIsbnD.getText());
-
+                    int isbn = Integer.parseInt(tIsbnD.getText());
+                    int id = Integer.parseInt(tIdD.getText());
+                    
                     try
                     {
-                        cE.checkID(tIdD.getText());
-
-                        try {
-                            int isbn = Integer.parseInt(tIsbnD.getText());
-                            int id = Integer.parseInt(tIdD.getText());
-                            try{
+                        cE.checkID(id);
+                        try
+                        {
+                            cE.checkIsbn(isbn);
+                            
+                            try
+                            {
+                                
                                 cE.devolveExemplar(isbn, id);
-
-                            } catch(Exception ex)
+                                JOptionPane.showMessageDialog(null, "Devolução Registrada");
+        
+                            } catch (Exception ex)
                             {
                                 JOptionPane.showMessageDialog(null, "problema no back trocar para (Devolução falhou) linha 157");
                             }
-
-                        }catch(Exception ex)
+                        } catch(Exception ex)
                         {
-                            JOptionPane.showMessageDialog(null,"Os campos devem ser numeros inteiros");
+                            JOptionPane.showMessageDialog(null, "ID do exemplar não cadastrado");
                         }
-                        JOptionPane.showMessageDialog(null, "Devolução Registrada");
-
-
                     } catch (Exception x)
                     {
                         JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
                     }
-
-                } catch (Exception x)
+                } catch (Exception ex)
                 {
-                    JOptionPane.showMessageDialog(null, "ID do exemplar não cadastrado");
-                }
+                            JOptionPane.showMessageDialog(null, "Os campos devem ser numeros inteiros");
 
+                }
             }
         }
 

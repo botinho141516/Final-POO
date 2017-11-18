@@ -51,15 +51,15 @@ public class ControleEmprestimo implements Serializable{
         }
     }
 
-    public void checkIsbn(String text) throws Exception {
+    public void checkIsbn(int isbn) throws Exception {
 
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
+            
             Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
-            Exemplar e;
-            if (Integer.parseInt(text) == pu.getISBN()) {
+            if (isbn == pu.getISBN()) {
                 for (int j = 0; j < pu.getExemplares().size(); j++) {
-                    e = (Exemplar) pu.getExemplares().get(j);
-                    if (e.getFlag() == 1) {
+                    
+                    if (pu.getExemplares().get(j).getFlag() == 1) {
                         System.out.println("imprima os exemplares emprestados aqui");
                     } else {
                         System.out.println("imprima os exemplares não emprestados aqui");
@@ -69,11 +69,11 @@ public class ControleEmprestimo implements Serializable{
         }
     }
 
-    public void checkID(String text) throws Exception {
+    public void checkID(int id) throws Exception {
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
             Exemplar e;
-            if (text.equals(pu.getTitulo())) {
+            //if (id == pu.get()) {//DEVE CHECAR NO ARRAYLIST  DE ASSOCIADOS SE O ID EXISTE
                 for (int j = 0; j < pu.getExemplares().size(); j++) {
                     e = (Exemplar) pu.getExemplares().get(j);
                     if (e.getFlag() == 1) {
@@ -82,7 +82,7 @@ public class ControleEmprestimo implements Serializable{
                         System.out.println("imprima os exemplares não emprestados aqui");
                     }
                 }
-            }
+            //}
         }
     }
 
