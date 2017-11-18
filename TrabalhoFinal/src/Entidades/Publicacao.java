@@ -10,12 +10,12 @@ public class Publicacao {
     private String editora;
     private ArrayList<Exemplar> exemplares = new ArrayList();
 
-    public Publicacao(int ISBN, String titulo, String autor, String editora, ArrayList<Exemplar> exemplares) {
+    public Publicacao(int ISBN, String titulo, String autor, String editora){//, ArrayList<Exemplar> exemplares) {
         this.ISBN = ISBN;
         this.titulo = titulo;
         this.autor = autor;
         this.editora = editora;
-        this.exemplares = exemplares;
+        //this.exemplares = exemplares;
     }
 
     public int getISBN() {

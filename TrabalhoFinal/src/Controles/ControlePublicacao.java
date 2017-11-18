@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Vector;
 
 
@@ -14,8 +15,12 @@ import java.util.Vector;
 public class ControlePublicacao {
     
     ViewPublicacao vP;
-    private Vector<Publicacao> Publicacoes = new Vector();
-     
+    private ArrayList<Publicacao> Publicacoes = new ArrayList();
+
+    public ArrayList<Publicacao> getPublicacoes() {
+        return Publicacoes;
+    }
+         
     public ControlePublicacao(ViewPublicacao view)
     {
         vP = view;
@@ -41,7 +46,7 @@ public class ControlePublicacao {
             if (objFile.exists()) {
                 FileInputStream objFileIS = new FileInputStream("Publicacoes.dat");
                 ObjectInputStream objIS = new ObjectInputStream(objFileIS);
-                Publicacoes = (Vector) objIS.readObject();
+                Publicacoes = (ArrayList) objIS.readObject();
                 objIS.close();
             }
              } catch (Exception e) {
@@ -50,7 +55,7 @@ public class ControlePublicacao {
     }
     
     public void cadastraPublicacao(int id, String text, String text0, String text1, String text2) {
-        Publicacoes.add(new Publicacao(id, text, text0, text1, text2));
+        Publicacoes.add(new Publicacao(id, text, text0, text1));
         serializaPublicacoes();
     }
 
