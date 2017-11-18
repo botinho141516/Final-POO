@@ -155,14 +155,22 @@ public class ViewEmprestimo implements ActionListener {
                     {
                         cE.checkID(tIdD.getText());
 
-                        try
+                        try {
+                            int isbn = Integer.parseInt(tIsbnD.getText());
+                            int id = Integer.parseInt(tIdD.getText());
+                            try{
+                                cE.devolveExemplar(isbn, id);
+
+                            } catch(Exception ex)
+                            {
+                                JOptionPane.showMessageDialog(null, "problema no back trocar para (Devolução falhou) linha 157");
+                            }
+
+                        }catch(Exception ex)
                         {
-                            cE.devolveExemplar(tIsbnD.getText(), tIdD.getText());
-                            JOptionPane.showMessageDialog(null, "Devolução Registrada");
-                        } catch (Exception x)
-                        {
-                            JOptionPane.showMessageDialog(null, "problema no back trocar para (Devolução falhou) linha 157");
+                            JOptionPane.showMessageDialog(null,"Os campos devem ser numeros inteiros");
                         }
+                        JOptionPane.showMessageDialog(null, "Devolução Registrada");
 
 
                     } catch (Exception x)

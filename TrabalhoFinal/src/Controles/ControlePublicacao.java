@@ -70,8 +70,8 @@ public class ControlePublicacao implements Serializable {
         }
     }
 
-    public void cadastraPublicacao(int id, String text, String text0, String text1) {
-        Publicacoes.add(new Publicacao(id, text, text0, text1));
+    public void cadastraPublicacao(int id, String titulo, String autor, String editora) {
+        Publicacoes.add(new Publicacao(id, titulo, autor, editora));
         try {
             serializaPublicacao();
 

@@ -50,8 +50,8 @@ public class ControleAssociado implements Serializable{
         }
     }
 
-    public void cadastraAsssociado(int id, String text, String text0, String text1, String toString) {
-       Associados.add(new Associado(id, text, text0, text1, toString));
+    public void cadastraAsssociado(int id, String nome, String endereco, String email, String status) {
+       Associados.add(new Associado(id, nome, endereco, email, status));
        try{
             deserializaAssociados();
         } catch(Exception ex)
