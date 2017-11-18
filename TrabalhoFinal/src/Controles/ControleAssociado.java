@@ -2,17 +2,14 @@ package Controles;
 
 import Entidades.Associado;
 import Visões.ViewAssociado;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class ControleAssociado {
 
     ViewAssociado vA;
-    private Vector<Associado> Associados = new Vector();
+    private ArrayList<Associado> Associados = new ArrayList();
 
     public ControleAssociado(ViewAssociado view) {
         vA = view;
@@ -38,7 +35,7 @@ public class ControleAssociado {
             if (objFile.exists()) {
                 FileInputStream objFileIS = new FileInputStream("Associados.dat");
                 ObjectInputStream objIS = new ObjectInputStream(objFileIS);
-                Associados = (Vector) objIS.readObject();
+                Associados = (ArrayList) objIS.readObject();
                 //System.out.println(lista.size());
 
                 objIS.close();

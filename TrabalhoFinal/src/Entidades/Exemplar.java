@@ -10,11 +10,13 @@ public class Exemplar {
     private int numero;
     private int ISBN;
     private double preco;
+    private int flag = 0;
 
-    public Exemplar(int numero, int ISBN, double preco) {
+    public Exemplar(int numero, int ISBN, double preco, int flag) {
         this.numero = numero;
         this.ISBN = ISBN;
         this.preco = preco;
+        this.flag = flag;
     }
 
     public int getNumero() {
@@ -39,6 +41,14 @@ public class Exemplar {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
 }
