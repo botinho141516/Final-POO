@@ -96,7 +96,7 @@ public class ViewEmprestimo implements ActionListener {
             {
                 try
                 {
-                    int id = Integer.parseInt(tIsbn.getText());
+                    int id = Integer.parseInt(tId.getText());
                     int isbn = Integer.parseInt(tIsbn.getText());
 
                     try
@@ -109,22 +109,24 @@ public class ViewEmprestimo implements ActionListener {
                             try
                             {
                                 cE.checkIsbn(isbn);
-                                try
+  //                              try
                                 {
                                     cE.cadastraEmprestimo(id, isbn, data);
-                                } catch (Exception ex)
-                                {
-                                    JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");
+    //                            } catch (Exception ex)
+      //                          {
+                                    //JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");
                                 }
 
                             } catch (Exception ex)
                             {
-                                JOptionPane.showMessageDialog(null, "ID não cadastrado");
+                                ex.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
                             }
 
                         } catch (Exception ex)
                         {
-                            JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "ID não cadastrado");
                         }
 
                     } catch (Exception ex)
