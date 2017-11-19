@@ -1,6 +1,5 @@
 package Controles;
 
-import Entidades.Associado;
 import Entidades.Exemplar;
 import Entidades.Publicacao;
 import Visões.ViewPublicacao;
@@ -11,7 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class ControlePublicacao implements Serializable {
 
@@ -28,7 +26,7 @@ public class ControlePublicacao implements Serializable {
         try {
             serializaPublicacao();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao abrir");
+            vP.showErrorMessage(0);
         }
     }
 
@@ -76,7 +74,6 @@ public class ControlePublicacao implements Serializable {
                 objIS.close();
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new Exception();
         }
     }
@@ -87,7 +84,7 @@ public class ControlePublicacao implements Serializable {
             serializaPublicacao();
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao serializar");
+            vP.showErrorMessage(1);
         }
     }
 

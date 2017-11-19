@@ -16,7 +16,6 @@ public class Publicacao implements Serializable{
         this.titulo = titulo;
         this.autor = autor;
         this.editora = editora;
-        //this.exemplares = exemplares;
     }
 
     public int getISBN() {

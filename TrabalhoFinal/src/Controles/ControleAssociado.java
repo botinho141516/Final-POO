@@ -4,7 +4,6 @@ import Entidades.Associado;
 import Visões.ViewAssociado;
 import java.io.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class ControleAssociado implements Serializable{
 
@@ -16,7 +15,7 @@ public class ControleAssociado implements Serializable{
         try {
             serializaAssociados();
         } catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao abrir");
+            vA.showMessageError(0);
         }
         
     }
@@ -45,7 +44,6 @@ public class ControleAssociado implements Serializable{
                 objIS.close();
             }
              } catch (Exception e) {
-                 e.printStackTrace();
                  throw new Exception();
         }
     }
@@ -54,15 +52,16 @@ public class ControleAssociado implements Serializable{
        Associados.add(new Associado(id, nome, endereco, email, status));
        try{
             deserializaAssociados();
+            //Print de teste
             for(int i = 0; i < Associados.size(); i++){
                Associado a = (Associado) Associados.get(i);
                String s = "Nome " + a.getName()+" Email "+a.getEmail()+" Endereco " +a.getEndereco()+ " Status "+a.getStatus()+" Codigo " +a.getCodigo();
-                System.out.println(s);
+               System.out.println(s);
             }
                
         } catch(Exception ex)
         {
-            JOptionPane.showMessageDialog(null,"Erro ao serializar");
+            vA.showMessageError(1);
         }
     }
 

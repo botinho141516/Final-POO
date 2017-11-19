@@ -78,4 +78,17 @@ public class ViewExemplar implements ActionListener{
         }
         
     }
+
+    public void showMessageError(int i) {
+        switch(i)
+        {
+            case 0:
+                JOptionPane.showMessageDialog(null,"Erro na deserialização");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null,"Erro na serialização");
+                break;
+            
+        }
+    }
 }

@@ -136,4 +136,18 @@ public class ViewPublicacao implements ActionListener{
         }
         
     }
+
+     public void showErrorMessage(int i) {
+        switch(i)
+        {
+            case 0:
+                JOptionPane.showMessageDialog(null, "Erro ao serializar");
+                break;
+                
+            case 1:
+                JOptionPane.showMessageDialog(null,"Erro ao deserializar");
+                break;
+                
+        }
+    }
 }

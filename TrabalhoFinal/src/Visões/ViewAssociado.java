@@ -96,4 +96,18 @@ public class ViewAssociado implements ActionListener {
             }
         }
     }
+
+    public void showMessageError(int i) {
+        switch(i)
+        {
+            case 0:
+                JOptionPane.showMessageDialog(null, "Erro ao serializar");
+                break;
+                
+            case 1:
+                JOptionPane.showMessageDialog(null,"Erro ao deserializar");
+                break;
+                
+        }
+    }
 }

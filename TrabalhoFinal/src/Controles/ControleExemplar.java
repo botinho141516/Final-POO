@@ -10,14 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 public class ControleExemplar implements Serializable{
 
     ControlePublicacao ctrlpub;
@@ -32,7 +27,7 @@ public class ControleExemplar implements Serializable{
             
         }catch(Exception ex)
         {
-            JOptionPane.showMessageDialog(null,"Erro na deserialização");
+            vE.showMessageError(0);
         }
     }
 
@@ -68,17 +63,18 @@ public class ControleExemplar implements Serializable{
             Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
             if (id == pu.getISBN()) {
                 pu.getExemplares().add(new Exemplar(id, numero, preco, 0));
+                
                 try {
                     deserializaExemplares();
                 }catch(Exception ex)
                 {
-                    JOptionPane.showMessageDialog(null, "Erro na serialização");
+                    vE.showMessageError(1);
                 }
             }
         }
     }
 
-    public void checkId(int isbn) throws Exception {//procura se o ID que foi digitado realmente existe
+    public void checkId(int isbn) throws Exception {    //procura se o ID que foi digitado realmente existe
          for(int i = 0; i < Exemplares.size(); i++)
         {
             Exemplar a = (Exemplar) Exemplares.get(i);

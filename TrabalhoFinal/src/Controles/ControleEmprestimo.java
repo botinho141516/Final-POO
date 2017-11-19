@@ -92,19 +92,59 @@ public class ControleEmprestimo implements Serializable {
             }
         }
     }
-
-    public int diferencaData(String cargo, Date hoje) {
-        int k = 0;
-        return k;
+    
+    public boolean checkIfAtraso(String cargo, Date dia)
+    {
+        if(diferencaData(cargo,dia) > 0)
+            return true;
+        
+        return false;
     }
 
+    public int diferencaData(String cargo, Date dEmprestimo) {
+        int diasAtraso = 0;
+        int diasDisponiveis = 0;
+        
+        switch(cargo)
+        {
+            case " Aluno Graduação ":
+                diasDisponiveis = 7;
+                break;
+            case " Aluno Pós-Graduação ":
+                diasDisponiveis = 10;
+                
+                break;
+                
+            case " Professor ":
+                diasDisponiveis = 14;
+                break;
+                
+            default:;
+                System.out.println("ta errado");
+                break;
+        }
+        
+        Date now = new Date();
+        
+        //in milliseconds
+        long dif = now.getTime() - dEmprestimo.getTime();
+        
+        dif = dif/(1000*60*60*24); //transforma milisegundos em dias
+        
+        if(dif > diasDisponiveis)
+            diasAtraso = (int)dif - diasDisponiveis;
+
+        return diasAtraso;
+    }
+
+    
     public void devolveExemplar(int isbn, int id) throws Exception {
         Date d = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
         Exemplar e;
         Associado a;
-        String s;
+
         for (int i = 0; i < Emprestimos.size(); i++) {
             Emprestimo em = (Emprestimo) Emprestimos.get(i);
             if (em.getCodigoAssociado() == id) {
@@ -129,7 +169,45 @@ public class ControleEmprestimo implements Serializable {
         }
     }
 
-    public String checkAtrasos() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String showAtrasados() throws Exception {
+        String lista = "Publicações atrasadas:\n\n";
+        
+        Associado a = checkAtraso();
+        
+        if(a != null)
+        {
+            lista+=a.getCodigo() + " - " + a.getName() + ": ";
+            for(int i=0;i<Emprestimos.size();i++)
+            {
+                if(a.getCodigo() == Emprestimos.get(i).getCodigoAssociado())
+                {
+                    if(checkIfAtraso(a.getStatus(), Emprestimos.get(i).getDataEmprestimo()))
+                        lista+= "\t\t" + Emprestimos.get(i).getISBN() + " - " + 
+                                diferencaData(a.getStatus(),Emprestimos.get(i).getDataEmprestimo()) + "\n";
+                }
+            }
+        }
+        
+        System.out.println(lista);
+        return lista;
+    }
+    
+    public Associado checkAtraso()
+    {
+        for(int i=0;i<Emprestimos.size();i++)
+        {
+            Emprestimo e = Emprestimos.get(i);
+            for(int j=0;j<ctrlasso.getAssociados().size();j++)
+            {
+                Associado a = ctrlasso.getAssociados().get(j);
+
+                if(a.getCodigo() == e.getCodigoAssociado())
+                {
+                    if(checkIfAtraso(a.getStatus(), e.getDataEmprestimo()))
+                        return a;
+                }
+            }
+        }
+        return null;
     }
 }
