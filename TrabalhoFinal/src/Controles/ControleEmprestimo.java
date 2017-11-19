@@ -67,9 +67,9 @@ public class ControleEmprestimo implements Serializable {
                 for (int j = 0; j < pu.getExemplares().size(); j++) {
 
                     if (pu.getExemplares().get(j).getFlag() == 1) {
-                        System.out.println("imprima os exemplares emprestados aqui");
+                        return;
                     } else {
-                        System.out.println("imprima os exemplares não emprestados aqui");
+                        throw new Exception();
                     }
                 }
             }
@@ -77,19 +77,19 @@ public class ControleEmprestimo implements Serializable {
     }
 
     public void checkID(int id) throws Exception {
-        for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
-            Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
-            Exemplar e;
-            //if (id == pu.get()) {//DEVE CHECAR NO ARRAYLIST  DE ASSOCIADOS SE O ID EXISTE
-            for (int j = 0; j < pu.getExemplares().size(); j++) {
-                e = (Exemplar) pu.getExemplares().get(j);
-                if (e.getFlag() == 1) {
-                    System.out.println("imprima os exemplares emprestados aqui");
-                } else {
-                    System.out.println("imprima os exemplares não emprestados aqui");
+        Associado a;
+        for (int i = 0; i < Emprestimos.size(); i++) {
+            Emprestimo em = (Emprestimo) Emprestimos.get(i);
+            if (em.getCodigoAssociado() == id) {
+                for (int j = 0; j < ctrlasso.getAssociados().size(); j++) {
+                    a = (Associado) ctrlasso.getAssociados().get(j);
+                    if (a.getCodigo() == id) {
+                        return;
+                    } else {
+                        throw new Exception();
+                    }
                 }
             }
-            //}
         }
     }
 
