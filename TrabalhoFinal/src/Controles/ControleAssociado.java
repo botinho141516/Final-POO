@@ -54,6 +54,12 @@ public class ControleAssociado implements Serializable{
        Associados.add(new Associado(id, nome, endereco, email, status));
        try{
             deserializaAssociados();
+            for(int i = 0; i < Associados.size(); i++){
+               Associado a = (Associado) Associados.get(i);
+               String s = "Nome " + a.getName()+" Email "+a.getEmail()+" Endereco " +a.getEndereco()+ " Status "+a.getStatus()+" Codigo " +a.getCodigo();
+                System.out.println(s);
+            }
+               
         } catch(Exception ex)
         {
             JOptionPane.showMessageDialog(null,"Erro ao serializar");
