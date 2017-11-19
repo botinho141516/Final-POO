@@ -91,6 +91,11 @@ public class ControlePublicacao implements Serializable {
             tudo += emprestados;
             tudo += naoemprestados;
         }
+        
+        if("".equals(tudo))
+            return "Nenhum Exemplar Cadastrado para esse Título";
+
+
         return tudo;
     }
 
@@ -114,6 +119,9 @@ public class ControlePublicacao implements Serializable {
             tudo += emprestados;
             tudo += naoemprestados;
         }
+        if("".equals(tudo))
+            return "Nenhum Exemplar Cadastrado para esse Título";
+        
         return tudo;
     }
     

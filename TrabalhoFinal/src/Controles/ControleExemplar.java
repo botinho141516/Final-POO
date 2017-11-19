@@ -49,11 +49,26 @@ public class ControleExemplar implements Serializable{
     }
 
     public void checkId(int isbn) throws Exception {    //procura se o ID que foi digitado realmente existe
-         for(int i = 0; i < Exemplares.size(); i++)
+        for(int i = 0; i < Exemplares.size(); i++)
         {
             Exemplar a = (Exemplar) Exemplares.get(i);
             if(a.getISBN() == isbn)
                 throw new Exception();
+        }
+    }
+
+    public void checkNumero(int numero) throws Exception{
+        
+        if(numero <=0)
+            throw new Exception();
+        
+        for(int i=0;i<Exemplares.size();i++)
+        {
+            Exemplar e = Exemplares.get(i);
+            
+            if(e.getNumero() == numero)
+                throw new Exception();
+            
         }
     }
     
