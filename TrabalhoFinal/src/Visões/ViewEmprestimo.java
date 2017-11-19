@@ -114,7 +114,7 @@ public class ViewEmprestimo implements ActionListener {
                                 cE.checkIsbn(isbn);
                                 try
                                 {
-                                    cE.cadastraExemplar(id, isbn, data);
+                                    cE.cadastraEmprestimo(id, isbn, data);
                                 } catch (Exception ex)
                                 {
                                     JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");

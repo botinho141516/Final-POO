@@ -28,7 +28,7 @@ public class ControleExemplar implements Serializable{
     public ControleExemplar(ViewExemplar view) {
         vE = view;
         try {
-            es();
+            serializaExemplares();
             
         }catch(Exception ex)
         {
@@ -36,7 +36,7 @@ public class ControleExemplar implements Serializable{
         }
     }
 
-    public void serializaExemplares() throws Exception{
+    public void deserializaExemplares() throws Exception{
         try {
             FileOutputStream objFileOS = new FileOutputStream("Exemplares.dat");
             ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
@@ -48,7 +48,7 @@ public class ControleExemplar implements Serializable{
         }
     }
 
-    public void es() throws Exception{
+    public void serializaExemplares() throws Exception{
 
         try {
             File objFile = new File("Exemplares.dat");
@@ -69,7 +69,7 @@ public class ControleExemplar implements Serializable{
             if (id == pu.getISBN()) {
                 pu.getExemplares().add(new Exemplar(id, numero, preco, 0));
                 try {
-                    serializaExemplares();
+                    deserializaExemplares();
                 }catch(Exception ex)
                 {
                     JOptionPane.showMessageDialog(null, "Erro na serialização");
@@ -78,8 +78,12 @@ public class ControleExemplar implements Serializable{
         }
     }
 
-    public void checkId(int id) throws Exception {//procura se o ID que foi digitado realmente existe
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void checkId(int isbn) throws Exception {//procura se o ID que foi digitado realmente existe
+         for(int i = 0; i < Exemplares.size(); i++)
+        {
+            Exemplar a = (Exemplar) Exemplares.get(i);
+            if(a.getISBN() == isbn)
+                throw new Exception();
+        }
     }
-
 }

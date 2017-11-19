@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class ControleAssociado implements Serializable{
 
     ViewAssociado vA;
-    private ArrayList<Associado> Associados = new ArrayList();
+    ArrayList<Associado> Associados = new ArrayList();
 
     public ControleAssociado(ViewAssociado view) {
         vA = view;
@@ -73,5 +73,13 @@ public class ControleAssociado implements Serializable{
             if(a.getCodigo() == id)
                 throw new Exception();
         }
+    }
+
+    public ArrayList<Associado> getAssociados() {
+        return Associados;
+    }
+
+    public void setAssociados(ArrayList<Associado> Associados) {
+        this.Associados = Associados;
     }
 }
