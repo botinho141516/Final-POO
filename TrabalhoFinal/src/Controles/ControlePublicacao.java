@@ -1,6 +1,7 @@
 package Controles;
 
 import Entidades.Associado;
+import Entidades.Exemplar;
 import Entidades.Publicacao;
 import Visões.ViewPublicacao;
 import java.io.File;
@@ -26,19 +27,29 @@ public class ControlePublicacao implements Serializable {
         vP = view;
         try {
             serializaPublicacao();
-        } catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao abrir");
         }
     }
 
     public boolean searchPublicacao(String titulo) {    //procura por titulo
-        boolean achou = false;
-        return achou;
+        for (int i = 0; i < Publicacoes.size(); i++) {
+            Publicacao p = (Publicacao) Publicacoes.get(i);
+            if (p.getTitulo() == titulo) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean searchPublicacao(int id) {   //procura por isbn
-        boolean achou = false;
-        return achou;
+        for (int i = 0; i < Publicacoes.size(); i++) {
+            Publicacao p = (Publicacao) Publicacoes.get(i);
+            if (p.getISBN() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void deserializaPublicacao() throws Exception {
@@ -90,11 +101,49 @@ public class ControlePublicacao implements Serializable {
     }
 
     public String showPublicacao(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String tudo = "";
+        for (int i = 0; i < Publicacoes.size(); i++) {
+            String emprestados = "", naoemprestados = "";
+            Exemplar e;
+            Publicacao p = (Publicacao) Publicacoes.get(i);
+            if (p.getTitulo() == text) {
+                for (int j = 0; j < p.getExemplares().size(); j++) {
+                    e = (Exemplar) p.getExemplares().get(j);
+                    if (e.getFlag() == 1) {
+                        emprestados += "Emprestados: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
+                    }
+                    if (e.getFlag() == 0) {
+                        naoemprestados += "Não emprestados: \nISBN: " + e.getISBN() + " Número: " + e.getNumero();
+                    }
+                }
+            }
+            tudo += emprestados;
+            tudo += naoemprestados;
+        }
+        return tudo;
     }
 
     public String showPublicacao(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String tudo = "";
+        for (int i = 0; i < Publicacoes.size(); i++) {
+            String emprestados = "", naoemprestados = "";
+            Exemplar e;
+            Publicacao p = (Publicacao) Publicacoes.get(i);
+            if (p.getISBN() == id) {
+                for (int j = 0; j < p.getExemplares().size(); j++) {
+                    e = (Exemplar) p.getExemplares().get(j);
+                    if (e.getFlag() == 1) {
+                        emprestados += "Emprestados: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
+                    }
+                    if (e.getFlag() == 0) {
+                        naoemprestados += "Não emprestados: \nISBN: " + e.getISBN() + " Número: " + e.getNumero();
+                    }
+                }
+            }
+            tudo += emprestados;
+            tudo += naoemprestados;
+        }
+        return tudo;
     }
 
 }
