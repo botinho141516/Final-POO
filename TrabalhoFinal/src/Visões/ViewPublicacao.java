@@ -1,10 +1,12 @@
 package Visões;
 
 import Controles.ControlePublicacao;
+import Entidades.Publicacao;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class ViewPublicacao implements ActionListener{
@@ -21,6 +23,7 @@ public class ViewPublicacao implements ActionListener{
     JLabel blank1 = new JLabel(" ");
     JButton okBtn = new JButton("Cadastrar");
     JButton searchButton = new JButton("Buscar");
+    
     public ViewPublicacao() {
         cP = new ControlePublicacao(this);
     }
@@ -59,7 +62,7 @@ public class ViewPublicacao implements ActionListener{
         main.add(blank);
         main.add(searchButton);
         
-        okBtn.addActionListener(this);
+        searchButton.addActionListener(this);
         
         main.setSize(400,400);
         
@@ -81,11 +84,18 @@ public class ViewPublicacao implements ActionListener{
                     
                     try {
                         cP.checkId(id);
+                        try {
+                            cP.cadastraPublicacao(id,tTituloC.getText(),tAutor.getText(),tEditora.getText());
+                            JOptionPane.showMessageDialog(null,"Cadastrado com sucesso");
+                            
+                        }catch(Exception ex)
+                        {
+                            JOptionPane.showMessageDialog(null,"Erro ao cadastrar");
+                        }
                     }catch(Exception ex)
                     {
                         JOptionPane.showMessageDialog(null,"Publicação com esse id ja cadastrada");
                     }
-                    cP.cadastraPublicacao(id,tTituloC.getText(),tAutor.getText(),tEditora.getText());
 
                 }catch(Exception ex)
                 {
@@ -94,6 +104,7 @@ public class ViewPublicacao implements ActionListener{
                     
             }
         }
+        
         else if(e.getSource() == searchButton)
         {
 
@@ -115,8 +126,8 @@ public class ViewPublicacao implements ActionListener{
                     if(cP.searchPublicacao(id))
                         JOptionPane.showMessageDialog(null,cP.showPublicacao(id));
 
-                else
-                    JOptionPane.showMessageDialog(null,"Pubicação com esse ISBN não encontrada");
+                    else
+                        JOptionPane.showMessageDialog(null,"Pubicação com esse ISBN não encontrada");
 
                 }catch(Exception ex)
                 {

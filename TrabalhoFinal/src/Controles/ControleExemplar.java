@@ -23,7 +23,7 @@ public class ControleExemplar implements Serializable{
     public ControleExemplar(ViewExemplar view) {
         vE = view;
         try {
-            serializaExemplares();
+            deserializaExemplares();
             
         }catch(Exception ex)
         {
@@ -31,32 +31,6 @@ public class ControleExemplar implements Serializable{
         }
     }
 
-    public void deserializaExemplares() throws Exception{
-        try {
-            FileOutputStream objFileOS = new FileOutputStream("Exemplares.dat");
-            ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
-            objOS.writeObject(Exemplares);
-            objOS.flush();
-            objOS.close();
-        } catch (Exception e) {
-            throw new Exception();
-        }
-    }
-
-    public void serializaExemplares() throws Exception{
-
-        try {
-            File objFile = new File("Exemplares.dat");
-            if (objFile.exists()) {
-                FileInputStream objFileIS = new FileInputStream("Exemplares.dat");
-                ObjectInputStream objIS = new ObjectInputStream(objFileIS);
-                Exemplares = (ArrayList) objIS.readObject();
-                objIS.close();
-            }
-        } catch (Exception e) {
-            throw new Exception();
-        }
-    }
 
     public void cadastraExemplar(int id, int numero, int preco) {
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
@@ -65,7 +39,7 @@ public class ControleExemplar implements Serializable{
                 pu.getExemplares().add(new Exemplar(id, numero, preco, 0));
                 
                 try {
-                    deserializaExemplares();
+                    serializaExemplares();
                 }catch(Exception ex)
                 {
                     vE.showMessageError(1);
@@ -80,6 +54,33 @@ public class ControleExemplar implements Serializable{
             Exemplar a = (Exemplar) Exemplares.get(i);
             if(a.getISBN() == isbn)
                 throw new Exception();
+        }
+    }
+    
+    public void serializaExemplares() throws Exception{
+        try {
+            FileOutputStream objFileOS = new FileOutputStream("Exemplares.dat");
+            ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
+            objOS.writeObject(Exemplares);
+            objOS.flush();
+            objOS.close();
+        } catch (Exception e) {
+            throw new Exception();
+        }
+    }
+
+    public void deserializaExemplares() throws Exception{
+
+        try {
+            File objFile = new File("Exemplares.dat");
+            if (objFile.exists()) {
+                FileInputStream objFileIS = new FileInputStream("Exemplares.dat");
+                ObjectInputStream objIS = new ObjectInputStream(objFileIS);
+                Exemplares = (ArrayList) objIS.readObject();
+                objIS.close();
+            }
+        } catch (Exception e) {
+            throw new Exception();
         }
     }
 }

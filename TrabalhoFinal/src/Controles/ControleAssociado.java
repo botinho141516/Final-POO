@@ -13,45 +13,18 @@ public class ControleAssociado implements Serializable{
     public ControleAssociado(ViewAssociado view) {
         vA = view;
         try {
-            serializaAssociados();
+            deserializaAssociados();
         } catch (Exception e){
             vA.showMessageError(0);
         }
         
     }
 
-    public void deserializaAssociados() throws Exception {
-        try {
-            FileOutputStream objFileOS = new FileOutputStream("Associados.dat");
-            ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
-            objOS.writeObject(Associados);
-            objOS.flush();
-            objOS.close();
-        } catch (Exception e) {
-                throw new Exception();
-        }
-    }
-
-    public void serializaAssociados() throws Exception {
-
-        try {
-            File objFile = new File("Associados.dat");
-            if (objFile.exists()) {
-                FileInputStream objFileIS = new FileInputStream("Associados.dat");
-                ObjectInputStream objIS = new ObjectInputStream(objFileIS);
-                Associados = (ArrayList) objIS.readObject();
-
-                objIS.close();
-            }
-             } catch (Exception e) {
-                 throw new Exception();
-        }
-    }
 
     public void cadastraAsssociado(int id, String nome, String endereco, String email, String status) {
        Associados.add(new Associado(id, nome, endereco, email, status));
        try{
-            deserializaAssociados();
+            serializaAssociados();
             //Print de teste
             for(int i = 0; i < Associados.size(); i++){
                Associado a = (Associado) Associados.get(i);
@@ -71,6 +44,33 @@ public class ControleAssociado implements Serializable{
             Associado a = (Associado) Associados.get(i);
             if(a.getCodigo() == id)
                 throw new Exception();
+        }
+    }
+    public void serializaAssociados() throws Exception {
+        try {
+            FileOutputStream objFileOS = new FileOutputStream("Associados.dat");
+            ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
+            objOS.writeObject(Associados);
+            objOS.flush();
+            objOS.close();
+        } catch (Exception e) {
+                throw new Exception();
+        }
+    }
+
+    public void deserializaAssociados() throws Exception {
+
+        try {
+            File objFile = new File("Associados.dat");
+            if (objFile.exists()) {
+                FileInputStream objFileIS = new FileInputStream("Associados.dat");
+                ObjectInputStream objIS = new ObjectInputStream(objFileIS);
+                Associados = (ArrayList) objIS.readObject();
+
+                objIS.close();
+            }
+             } catch (Exception e) {
+                 throw new Exception();
         }
     }
 

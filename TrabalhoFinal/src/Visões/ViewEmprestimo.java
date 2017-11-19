@@ -80,9 +80,8 @@ public class ViewEmprestimo implements ActionListener {
 
         } catch (Exception ex)
         {
-
+            return new JLabel("Erro ao checar atrasados");
         }
-        return null;
     }
 
     @Override
@@ -186,9 +185,16 @@ public class ViewEmprestimo implements ActionListener {
 
     }
 
-    public void showMessageError() {
-
-        JOptionPane.showMessageDialog(null, "O campo data deve estar no formato dd/mm/aaaa");
+    public void showMessageError(int i) {
+        switch(i)
+        {
+            case 0: 
+                JOptionPane.showMessageDialog(null, "Erro ao serializar");
+                break;
+            case 1: 
+                JOptionPane.showMessageDialog(null, "Erro ao deserializar");
+                break;
+        }
     }
 
 }

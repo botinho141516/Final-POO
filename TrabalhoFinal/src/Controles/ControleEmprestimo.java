@@ -5,6 +5,11 @@ import Entidades.Emprestimo;
 import Entidades.Exemplar;
 import Entidades.Publicacao;
 import Visões.ViewEmprestimo;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +24,13 @@ public class ControleEmprestimo implements Serializable {
     ArrayList<Emprestimo> Emprestimos = new ArrayList<>();
 
     public ControleEmprestimo(ViewEmprestimo view) {
+        try
+        {
+            deserializaEmprestimos();
+        } catch (Exception ex)
+        {
+            vE.showMessageError(1);
+        }
         vE = view;
     }
 
@@ -52,6 +64,12 @@ public class ControleEmprestimo implements Serializable {
                     if (id == e.getISBN() && e.getFlag() == 0) {
                         e.setFlag(1);
                         Emprestimos.add(new Emprestimo(isbn, data, id));
+                        try {
+                            serializaEmprestimos();
+                        }catch(Exception ex)
+                        {
+                            vE.showMessageError(1);
+                        }
                     }
                 }
             }
@@ -188,7 +206,6 @@ public class ControleEmprestimo implements Serializable {
             }
         }
         
-        System.out.println(lista);
         return lista;
     }
     
@@ -209,5 +226,33 @@ public class ControleEmprestimo implements Serializable {
             }
         }
         return null;
+    }
+    
+    public void serializaEmprestimos() throws Exception {
+        try {
+            FileOutputStream objFileOS = new FileOutputStream("Emprestimos.dat");
+            ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
+            objOS.writeObject(Emprestimos);
+            objOS.flush();
+            objOS.close();
+        } catch (Exception e) {
+                throw new Exception();
+        }
+    }
+
+    public void deserializaEmprestimos() throws Exception {
+
+        try {
+            File objFile = new File("Emprestimos.dat");
+            if (objFile.exists()) {
+                FileInputStream objFileIS = new FileInputStream("Emprestimos.dat");
+                ObjectInputStream objIS = new ObjectInputStream(objFileIS);
+                Emprestimos = (ArrayList) objIS.readObject();
+
+                objIS.close();
+            }
+             } catch (Exception e) {
+                 throw new Exception();
+        }
     }
 }

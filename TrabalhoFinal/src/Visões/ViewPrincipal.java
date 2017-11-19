@@ -43,7 +43,7 @@ public class ViewPrincipal extends JFrame implements ActionListener{
         main.add(vEm.ViewDevolucao());
         main.add(atrasos);
         
-        atrasos.add(new JLabel());
+        atrasos.add(vEm.ViewAtrasos());
         
         mb.add(sm);
             sm.add(mAs);

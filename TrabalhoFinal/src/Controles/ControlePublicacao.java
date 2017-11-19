@@ -24,7 +24,7 @@ public class ControlePublicacao implements Serializable {
     public ControlePublicacao(ViewPublicacao view) {
         vP = view;
         try {
-            serializaPublicacao();
+            deserializaPublicacao();
         } catch (Exception e) {
             vP.showErrorMessage(0);
         }
@@ -33,7 +33,7 @@ public class ControlePublicacao implements Serializable {
     public boolean searchPublicacao(String titulo) {    //procura por titulo
         for (int i = 0; i < Publicacoes.size(); i++) {
             Publicacao p = (Publicacao) Publicacoes.get(i);
-            if (p.getTitulo() == titulo) {
+            if (p.getTitulo().equals(titulo)) {
                 return true;
             }
         }
@@ -50,41 +50,15 @@ public class ControlePublicacao implements Serializable {
         return false;
     }
 
-    public void deserializaPublicacao() throws Exception {
+    
+
+    public void cadastraPublicacao(int id, String titulo, String autor, String editora) throws Exception{
         try {
-            FileOutputStream objFileOS = new FileOutputStream("Publicacoes.dat");
-            ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
-            objOS.writeObject(Publicacoes);
-            objOS.flush();
-            objOS.close();
-        } catch (Exception e) {
-            throw new Exception();
-        }
-    }
-
-    public void serializaPublicacao() throws Exception {
-
-        try {
-            File objFile = new File("Publicacoes.dat");
-            if (objFile.exists()) {
-                FileInputStream objFileIS = new FileInputStream("Publicacoes.dat");
-                ObjectInputStream objIS = new ObjectInputStream(objFileIS);
-                Publicacoes = (ArrayList) objIS.readObject();
-
-                objIS.close();
-            }
-        } catch (Exception e) {
-            throw new Exception();
-        }
-    }
-
-    public void cadastraPublicacao(int id, String titulo, String autor, String editora) {
-        Publicacoes.add(new Publicacao(id, titulo, autor, editora));
-        try {
+            Publicacoes.add(new Publicacao(id, titulo, autor, editora));
             serializaPublicacao();
 
         } catch (Exception ex) {
-            vP.showErrorMessage(1);
+            throw new Exception();
         }
     }
 
@@ -103,7 +77,7 @@ public class ControlePublicacao implements Serializable {
             String emprestados = "", naoemprestados = "";
             Exemplar e;
             Publicacao p = (Publicacao) Publicacoes.get(i);
-            if (p.getTitulo() == text) {
+            if (p.getTitulo().equals(text)) {
                 for (int j = 0; j < p.getExemplares().size(); j++) {
                     e = (Exemplar) p.getExemplares().get(j);
                     if (e.getFlag() == 1) {
@@ -141,6 +115,35 @@ public class ControlePublicacao implements Serializable {
             tudo += naoemprestados;
         }
         return tudo;
+    }
+    
+    
+    public void deserializaPublicacao() throws Exception {
+
+        try {
+            File objFile = new File("Publicacoes.dat");
+            if (objFile.exists()) {
+                FileInputStream objFileIS = new FileInputStream("Publicacoes.dat");
+                ObjectInputStream objIS = new ObjectInputStream(objFileIS);
+                Publicacoes = (ArrayList) objIS.readObject();
+
+                objIS.close();
+            }
+        } catch (Exception e) {
+            throw new Exception();
+        }
+    }
+    
+    public void serializaPublicacao() throws Exception {
+        try {
+            FileOutputStream objFileOS = new FileOutputStream("Publicacoes.dat");
+            ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
+            objOS.writeObject(Publicacoes);
+            objOS.flush();
+            objOS.close();
+        } catch (Exception e) {
+            throw new Exception();
+        }
     }
 
 }
