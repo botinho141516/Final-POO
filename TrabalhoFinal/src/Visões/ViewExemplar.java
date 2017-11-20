@@ -76,7 +76,6 @@ public class ViewExemplar implements ActionListener{
                             }
                         }catch(Exception ex)
                         {
-                            ex.printStackTrace();
                             JOptionPane.showMessageDialog(null,"Numero ja cadastrado");
                             
                         }

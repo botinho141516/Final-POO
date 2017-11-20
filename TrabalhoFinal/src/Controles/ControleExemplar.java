@@ -28,6 +28,7 @@ public class ControleExemplar implements Serializable {
         try {
             ctrlpub.deserializaPublicacao();
         } catch(Exception e)  {
+            vE.showMessageError(0);
         }
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             Publicacao pu = ctrlpub.getPublicacoes().get(i);

@@ -25,7 +25,6 @@ public class ControlePublicacao implements Serializable {
         vP = view;
         try {
             deserializaPublicacao();
-            System.out.println(Publicacoes.size() + "Publicacoes");
         } catch (Exception e) {
             vP.showErrorMessage(0);
         }
@@ -87,6 +86,8 @@ public class ControlePublicacao implements Serializable {
     }
 
     public String showPublicacao(String text) throws Exception{
+        
+        deserializaPublicacao();
         String tudo = "";
         for (int i = 0; i < Publicacoes.size(); i++) {
             
@@ -116,7 +117,8 @@ public class ControlePublicacao implements Serializable {
 
     public String showPublicacao(int id) throws Exception{
         try {
-            deserializaPublicacao();}
+            deserializaPublicacao();
+        }
         catch(Exception e){
             vP.showErrorMessage(1);
         }

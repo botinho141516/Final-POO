@@ -13,9 +13,9 @@ public class ViewAssociado implements ActionListener {
     
     String[] optStatus = {
         
-        " Aluno Graduação ",
-        " Aluno Pos-Graduação ",
-        " Professor "
+        "Aluno Graduação",
+        "Aluno Pos-Graduação",
+        "Professor"
     };
     JPanel main = new JPanel(new FlowLayout(1,5000,8));
     

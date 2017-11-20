@@ -116,6 +116,7 @@ public class ViewEmprestimo implements ActionListener {
                                 try
                                 {
                                     cE.checkNumero(isbn, numero);
+                                    
                                     try
                                     {
                                         cE.cadastraEmprestimo(idassociado, numero, isbn, data);
@@ -124,12 +125,11 @@ public class ViewEmprestimo implements ActionListener {
                                     {
                                         JOptionPane.showMessageDialog(null, "Exemplar ja emprestado");
                                     }
+
                                 } catch (Exception ex)
                                 {
                                     JOptionPane.showMessageDialog(null, "Numero para esse ISBN não encontrado");
-                                    
                                 }
-
                             } catch (Exception ex)
                             {
                                 ex.printStackTrace();
@@ -153,6 +153,12 @@ public class ViewEmprestimo implements ActionListener {
                 }
             }
 
+            
+            
+            
+            
+            
+            
         } else if (e.getSource() == devBtn)
         {
             if ("".equals(tIsbnD.getText()) || "".equals(tIdD.getText()))
@@ -162,9 +168,8 @@ public class ViewEmprestimo implements ActionListener {
             {
                 try
                 {
-                    int idassociado = Integer.parseInt(tIdassociado.getText());
+                    int idassociado = Integer.parseInt(tIdD.getText());
                     int isbn = Integer.parseInt(tIsbnD.getText());
-                    int id = Integer.parseInt(tIdD.getText());
 
                     try
                     {
@@ -172,16 +177,15 @@ public class ViewEmprestimo implements ActionListener {
                         try
                         {
                             cE.checkIsbn(isbn);
-
                             try
                             {
-
-                                cE.devolveExemplar(isbn, id);
+                                cE.devolveExemplar(isbn, idassociado);
                                 JOptionPane.showMessageDialog(null, "Devolução Registrada");
 
                             } catch (Exception ex)
                             {
-                                JOptionPane.showMessageDialog(null, "Devolução falhou");
+                                ex.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "Associado não possui exemplar com esse ISBN");
                             }
                         } catch (Exception ex)
                         {
