@@ -13,7 +13,7 @@ public class ViewEmprestimo implements ActionListener {
 
     JTextField tIdassociado = new JTextField(16);
     JTextField tIsbn = new JTextField(16);
-    JTextField tId = new JTextField(16);
+    JTextField tNumero = new JTextField(16);
     JTextField tData = new JTextField(16);
     JButton empBtn = new JButton("Emprestar");
     JButton devBtn = new JButton("Devolver");
@@ -38,7 +38,7 @@ public class ViewEmprestimo implements ActionListener {
         main.add(isbn);
         main.add(tIsbn);
         main.add(id);
-        main.add(tId);
+        main.add(tNumero);
         main.add(data);
         main.add(tData);
         main.add(blank);
@@ -92,15 +92,15 @@ public class ViewEmprestimo implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == empBtn)
         {
-            if ("".equals(tIdassociado.getText()) || "".equals(tIsbn.getText()) || "".equals(tId.getText()) || "".equals(tData.getText()))
+            if ("".equals(tIdassociado.getText()) || "".equals(tIsbn.getText()) || "".equals(tNumero.getText()) || "".equals(tData.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
             } else
             {
                 try
                 {
-                    int idassociado = Integer.parseInt(tIdassociado.getText());//aqui caralho
-                    int id = Integer.parseInt(tId.getText());
+                    int idassociado = Integer.parseInt(tIdassociado.getText());
+                    int numero = Integer.parseInt(tNumero.getText());
                     int isbn = Integer.parseInt(tIsbn.getText());
 
                     try
@@ -112,13 +112,22 @@ public class ViewEmprestimo implements ActionListener {
                             cE.checkIDassociado(idassociado);
                             try
                             {
-                                cE.checkIsbn(isbn, id);
-  //                              try
+                                cE.checkIsbn(isbn);
+                                try
                                 {
-                                    cE.cadastraEmprestimo(idassociado, id, isbn, data);
-    //                            } catch (Exception ex)
-      //                          {
-                                    //JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");
+                                    cE.checkNumero(isbn, numero);
+                                    try
+                                    {
+                                        cE.cadastraEmprestimo(idassociado, numero, isbn, data);
+                                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                                    } catch (Exception ex)
+                                    {
+                                        JOptionPane.showMessageDialog(null, "Exemplar ja emprestado");
+                                    }
+                                } catch (Exception ex)
+                                {
+                                    JOptionPane.showMessageDialog(null, "Numero para esse ISBN não encontrado");
+                                    
                                 }
 
                             } catch (Exception ex)
@@ -153,28 +162,28 @@ public class ViewEmprestimo implements ActionListener {
             {
                 try
                 {
-                    int idassociado = Integer.parseInt(tIdassociado.getText());//aqui caralho
+                    int idassociado = Integer.parseInt(tIdassociado.getText());
                     int isbn = Integer.parseInt(tIsbnD.getText());
                     int id = Integer.parseInt(tIdD.getText());
-                    
+
                     try
                     {
                         cE.checkIDassociado(idassociado);
                         try
                         {
-                            cE.checkIsbn(isbn, id);
-                            
+                            cE.checkIsbn(isbn);
+
                             try
                             {
-                                
+
                                 cE.devolveExemplar(isbn, id);
                                 JOptionPane.showMessageDialog(null, "Devolução Registrada");
-        
+
                             } catch (Exception ex)
                             {
-                                JOptionPane.showMessageDialog(null, "problema no back trocar para (Devolução falhou) linha 157");
+                                JOptionPane.showMessageDialog(null, "Devolução falhou");
                             }
-                        } catch(Exception ex)
+                        } catch (Exception ex)
                         {
                             JOptionPane.showMessageDialog(null, "ID do exemplar não cadastrado");
                         }
@@ -184,7 +193,7 @@ public class ViewEmprestimo implements ActionListener {
                     }
                 } catch (Exception ex)
                 {
-                            JOptionPane.showMessageDialog(null, "Os campos devem ser numeros inteiros");
+                    JOptionPane.showMessageDialog(null, "Os campos devem ser numeros inteiros");
 
                 }
             }
@@ -193,12 +202,12 @@ public class ViewEmprestimo implements ActionListener {
     }
 
     public void showMessageError(int i) {
-        switch(i)
+        switch (i)
         {
-            case 0: 
+            case 0:
                 JOptionPane.showMessageDialog(null, "Erro ao serializar");
                 break;
-            case 1: 
+            case 1:
                 JOptionPane.showMessageDialog(null, "Erro ao deserializar");
                 break;
         }

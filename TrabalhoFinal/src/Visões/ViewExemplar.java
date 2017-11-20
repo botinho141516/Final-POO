@@ -66,7 +66,7 @@ public class ViewExemplar implements ActionListener{
                         try {
                             cE.checkNumero(id,numero);
                             try {
-                                cE.cadastraExemplar(id,numero,preco); //A exception da aqui, inicializa a variavel ctrlpub no ControleExemplar
+                                cE.cadastraExemplar(id,numero,preco); 
                                 JOptionPane.showMessageDialog(null,"Cadastrado com sucesso");
                                 
                             }catch(Exception ex)

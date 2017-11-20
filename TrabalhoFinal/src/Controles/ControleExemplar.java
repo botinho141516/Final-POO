@@ -4,14 +4,8 @@ import Entidades.Exemplar;
 import Entidades.Publicacao;
 import Visões.ViewExemplar;
 import Visões.ViewPublicacao;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class ControleExemplar implements Serializable {
 
@@ -19,7 +13,6 @@ public class ControleExemplar implements Serializable {
     ControlePublicacao ctrlpub = new ControlePublicacao(v);
     Publicacao p;
     ViewExemplar vE;
-    private ArrayList<Exemplar> Exemplares = new ArrayList();
 
     public ControleExemplar(ViewExemplar view) {
         vE = view;
@@ -68,38 +61,15 @@ public class ControleExemplar implements Serializable {
     }
 
     public void checkId(int isbn) throws Exception {    //procura se o ID que foi digitado realmente existe
-        for (int i = 0; i < Exemplares.size(); i++) {
-            Exemplar a = (Exemplar) Exemplares.get(i);
-            if (a.getISBN() == isbn) {
-                throw new Exception();
-            }
+        ArrayList<Exemplar> e = null;
+        
+        for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
+            Publicacao a = ctrlpub.getPublicacoes().get(i);
+            if(a.getISBN() == isbn)
+                return;
         }
+        throw new Exception();
     }
 
-    public void serializaExemplares() throws Exception {
-        try {
-            FileOutputStream objFileOS = new FileOutputStream("Exemplares.dat");
-            ObjectOutputStream objOS = new ObjectOutputStream(objFileOS);
-            objOS.writeObject(Exemplares);
-            objOS.flush();
-            objOS.close();
-        } catch (Exception e) {
-            throw new Exception();
-        }
-    }
-
-    public void deserializaExemplares() throws Exception {
-
-        try {
-            File objFile = new File("Exemplares.dat");
-            if (objFile.exists()) {
-                FileInputStream objFileIS = new FileInputStream("Exemplares.dat");
-                ObjectInputStream objIS = new ObjectInputStream(objFileIS);
-                Exemplares = (ArrayList) objIS.readObject();
-                objIS.close();
-            }
-        } catch (Exception e) {
-            throw new Exception();
-        }
-    }
+    
 }

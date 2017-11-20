@@ -10,7 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class ControlePublicacao implements Serializable {
 
@@ -26,7 +25,7 @@ public class ControlePublicacao implements Serializable {
         vP = view;
         try {
             deserializaPublicacao();
-            System.out.println(Publicacoes.size());
+            System.out.println(Publicacoes.size() + "Publicacoes");
         } catch (Exception e) {
             vP.showErrorMessage(0);
         }

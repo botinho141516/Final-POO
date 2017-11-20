@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.JOptionPane;
 
 public class ControleEmprestimo implements Serializable {
 
@@ -57,18 +56,23 @@ public class ControleEmprestimo implements Serializable {
         }
     }
 
-    public void cadastraEmprestimo(int idassociado, int id, int isbn, Date data) throws Exception {
+    public void cadastraEmprestimo(int idassociado, int numero, int isbn, Date data) throws Exception {
         deserializaEmprestimos();
         ctrlasso.deserializaAssociados();
         Exemplar e;
+        
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
+            
             Publicacao pu = ctrlpub.getPublicacoes().get(i);
+            
             if (isbn == pu.getISBN()) {
                 for (int k = 0; k < pu.getExemplares().size(); k++) {
                     e = (Exemplar) pu.getExemplares().get(k);
-                    if (id == e.getISBN() && e.getFlag() == 0) {
+                    if (numero == e.getNumero() && e.getFlag() == 0) {
+                        
+                        Emprestimos.add(new Emprestimo(isbn, data, idassociado));
                         e.setFlag(1);
-                        Emprestimos.add(new Emprestimo(isbn, data, id));
+                        
                         try {
                             serializaEmprestimos();
                         } catch (Exception ex) {
@@ -76,40 +80,59 @@ public class ControleEmprestimo implements Serializable {
                         }
                     }
                 }
+                throw new Exception();
             }
         }
     }
 
-    public void checkIsbn(int isbn, int numero) throws Exception {
+    public void checkIsbn(int isbn) throws Exception {
+        
+        Publicacao pu;
+        
+        for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
+            
+            pu = ctrlpub.getPublicacoes().get(i);
+            
+            if (pu.getISBN() == isbn) {
+                return;
+            }
+        }
+        throw new Exception();
+    }
+    
+    public void checkNumero(int isbn,int numero) throws Exception {
         Publicacao pu;
         Exemplar e;
+
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
+            
             pu = ctrlpub.getPublicacoes().get(i);
+            
             if (pu.getISBN() == isbn) {
                 for (int j = 0; j < pu.getExemplares().size(); j++) {
-                    e = (Exemplar) pu.getExemplares().get(j);
+                    e = pu.getExemplares().get(j);
+
                     if (e.getFlag() == 1 && e.getNumero() == numero) {
                         throw new Exception();
                     }
                 }
             }
         }
+        
     }
 
     public void checkIDassociado(int id) throws Exception {
         ctrlasso.deserializaAssociados();
         Associado a;
-        /*for (int i = 0; i < Emprestimos.size(); i++) {
-            Emprestimo em = (Emprestimo) Emprestimos.get(i);
-            if (em.getCodigoAssociado() == id)*/ {
-            for (int j = 0; j < ctrlasso.getAssociados().size(); j++) {
-                a = (Associado) ctrlasso.getAssociados().get(j);
-                if (a.getCodigo() == id) {
-                    return;
-                }
-
+        
+        for (int j = 0; j < ctrlasso.getAssociados().size(); j++) {
+            a = (Associado) ctrlasso.getAssociados().get(j);
+            if (a.getCodigo() == id) {
+                return;
             }
+
         }
+        
         throw new Exception();
     }
 
@@ -126,15 +149,15 @@ public class ControleEmprestimo implements Serializable {
         int diasDisponiveis = 0;
 
         switch (cargo) {
-            case " Aluno Graduação ":
+            case "Aluno Graduação":
                 diasDisponiveis = 7;
                 break;
-            case " Aluno Pós-Graduação ":
+            case "Aluno Pós-Graduação":
                 diasDisponiveis = 10;
 
                 break;
 
-            case " Professor ":
+            case "Professor":
                 diasDisponiveis = 14;
                 break;
 
