@@ -44,7 +44,7 @@ public class ControleExemplar implements Serializable {
     
     public void checkNumero(int id,int numero) throws Exception {
         ArrayList<Exemplar> e = null;
-        
+        ctrlpub.deserializaPublicacao();
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             Publicacao a = ctrlpub.getPublicacoes().get(i);
             if(id == a.getISBN())
@@ -62,7 +62,7 @@ public class ControleExemplar implements Serializable {
 
     public void checkId(int isbn) throws Exception {    //procura se o ID que foi digitado realmente existe
         ArrayList<Exemplar> e = null;
-        
+        ctrlpub.deserializaPublicacao();
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             Publicacao a = ctrlpub.getPublicacoes().get(i);
             if(a.getISBN() == isbn)
