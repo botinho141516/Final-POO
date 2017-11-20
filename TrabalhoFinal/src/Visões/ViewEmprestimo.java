@@ -77,15 +77,15 @@ public class ViewEmprestimo implements ActionListener {
 
     }
 
-    public JLabel ViewAtrasos() {
-        try
-        {
-            return new JLabel(cE.showAtrasados());
-
-        } catch (Exception ex)
-        {
-            return new JLabel("Erro ao checar atrasados");
-        }
+    public JTextArea ViewAtrasos() {
+        
+        JTextArea a = new JTextArea(20,35);
+        a.setText(cE.showAtrasados());
+        a.setEditable(false);
+        
+        return a;
+            
+       
     }
 
     @Override

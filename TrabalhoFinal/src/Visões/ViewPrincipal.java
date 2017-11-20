@@ -1,6 +1,8 @@
 package Visões;
 
+import Controles.ControleEmprestimo;
 import java.awt.CardLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -12,6 +14,7 @@ public class ViewPrincipal extends JFrame implements ActionListener{
     ViewExemplar vEx = new ViewExemplar();
     ViewAssociado vAs = new ViewAssociado();
     ViewPublicacao vPu = new ViewPublicacao();
+    ControleEmprestimo cE = new ControleEmprestimo(vEm);
     
     JMenuBar mb = new JMenuBar();
     JMenu sm = new JMenu("Paginas",true);
@@ -25,10 +28,10 @@ public class ViewPrincipal extends JFrame implements ActionListener{
     JMenuItem mEm2 = new JMenuItem("Devolução");
     JSeparator sep = new JSeparator();
     JMenuItem mAt = new JMenuItem("Mostrar Atrasos");
+    JButton btn = new JButton("Atualizar");
     JPanel main = new JPanel(new CardLayout());
-    
-    JPanel atrasos = new JPanel();
-    
+    JTextArea ja = vEm.ViewAtrasos();
+    JPanel atrasos = new JPanel(new FlowLayout(1,5000,8));
     public ViewPrincipal()
     {
         super("Biblioteca SC");
@@ -42,7 +45,7 @@ public class ViewPrincipal extends JFrame implements ActionListener{
         main.add(vEm.ViewEmprestimo());
         main.add(vEm.ViewDevolucao());
         main.add(atrasos);
-        
+        atrasos.add(btn);
         atrasos.add(vEm.ViewAtrasos());
         
         mb.add(sm);
@@ -64,6 +67,7 @@ public class ViewPrincipal extends JFrame implements ActionListener{
         mEm1.addActionListener(this);
         mEm2.addActionListener(this);
         mAt.addActionListener(this);
+        btn.addActionListener(this);
         
         setJMenuBar(mb);
         setVisible(true);
@@ -108,6 +112,18 @@ public class ViewPrincipal extends JFrame implements ActionListener{
         }
         else if(e.getSource() == mAt) {
             layout.last(main);
+        }
+        
+        else if(e.getSource() == btn)
+        {
+            atrasos.remove(1);
+            ja.setEditable(true);
+            ja.setText(cE.showAtrasados());
+            ja.setEditable(false);
+            atrasos.add(ja);
+            atrasos.setVisible(false);
+            atrasos.setVisible(true);
+            
         }
                             
     }
