@@ -11,6 +11,7 @@ public class ViewEmprestimo implements ActionListener {
 
     ControleEmprestimo cE;
 
+    JTextField tNumeroEx = new JTextField(16);
     JTextField tIsbn = new JTextField(16);
     JTextField tIdAssociado = new JTextField(16);
     JTextField tData = new JTextField(16);
@@ -26,11 +27,15 @@ public class ViewEmprestimo implements ActionListener {
 
         JPanel main = new JPanel(new FlowLayout(1, 5000, 8));
 
+        JLabel numero = new JLabel("Número do Exemplar");
         JLabel isbn = new JLabel("ISBN");
         JLabel id = new JLabel("ID do cliente ");
         JLabel data = new JLabel("Data do Emprestimo");
         JLabel blank = new JLabel(" ");
 
+        
+        main.add(numero);
+        main.add(tNumeroEx);
         main.add(isbn);
         main.add(tIsbn);
         main.add(id);
@@ -123,19 +128,15 @@ public class ViewEmprestimo implements ActionListener {
                             try
                             {
                                 cE.checkIsbn(isbn, idAssociado);
-  //                              try
-                                {
-                                    JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");
-                                }
                             }
                             catch (Exception ex)
                             {
-                                JOptionPane.showMessageDialog(null, "ID não cadastrado");
+                                JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
                             }
 
                         } catch (Exception ex)
                         {
-                            JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
+                            JOptionPane.showMessageDialog(null, "ID não cadastrado");
                         }
 
                     } catch (Exception ex)
