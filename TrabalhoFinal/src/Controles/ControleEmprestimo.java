@@ -59,6 +59,7 @@ public class ControleEmprestimo implements Serializable {
 
     public void cadastraEmprestimo(int idassociado, int id, int isbn, Date data) throws Exception {
         deserializaEmprestimos();
+        ctrlasso.deserializaAssociados();
         Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             Publicacao pu = ctrlpub.getPublicacoes().get(i);
@@ -84,20 +85,19 @@ public class ControleEmprestimo implements Serializable {
         Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             pu = ctrlpub.getPublicacoes().get(i);
-            
             if (pu.getISBN() == isbn) {
                 for (int j = 0; j < pu.getExemplares().size(); j++) {
                     e = (Exemplar) pu.getExemplares().get(j);
                     if (e.getFlag() == 1 && e.getNumero() == numero) {
-                        JOptionPane.showMessageDialog(null, "Livro já emprestado");
+                        throw new Exception();
                     }
                 }
             }
         }
-        throw new Exception();
     }
 
     public void checkIDassociado(int id) throws Exception {
+        ctrlasso.deserializaAssociados();
         Associado a;
         /*for (int i = 0; i < Emprestimos.size(); i++) {
             Emprestimo em = (Emprestimo) Emprestimos.get(i);
