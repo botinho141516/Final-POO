@@ -190,7 +190,7 @@ public class ViewEmprestimo implements ActionListener {
                         {
                             JOptionPane.showMessageDialog(null, "ID do exemplar não cadastrado");
                         }
-                    } catch (Exception x)
+                    } catch (Exception ex)
                     {
                         JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
                     }

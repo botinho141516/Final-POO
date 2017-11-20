@@ -188,7 +188,7 @@ public class ControleEmprestimo implements Serializable {
                 diasDisponiveis = 14;
                 break;
 
-            default:;
+            default:
                 System.out.println("."+cargo+".");
                 break;
         }
@@ -199,10 +199,11 @@ public class ControleEmprestimo implements Serializable {
         long dif = now.getTime() - dEmprestimo.getTime();
 
         dif = dif / (1000 * 60 * 60 * 24); //transforma milisegundos em dias
-
+        System.out.println(now.getTime()+"\n"+dif+"\n"+dEmprestimo.getTime()+"\n\n");
         if (dif > diasDisponiveis) {
             diasAtraso = (int) dif - diasDisponiveis;
         }
+        
         System.out.println("Dif: "+ dif + "Dias Disponiveis: "+ diasDisponiveis + "Dia atraso:" + diasAtraso);
         return diasAtraso;
     }
@@ -230,7 +231,6 @@ public class ControleEmprestimo implements Serializable {
                     a = (Associado) ctrlasso.getAssociados().get(j);
                     
                     if (a.getCodigo() == id) {
-                        tempoRestante = diferencaData(a.getStatus(), d);
                         break;
                     }
                 }
@@ -243,7 +243,13 @@ public class ControleEmprestimo implements Serializable {
                     e = (Exemplar) pu.getExemplares().get(k);
                     if (id == a.getCodigo() && e.getFlag() == 1) {
                         e.setFlag(0);
-                        
+                        for(int j=0;j<Emprestimos.size();j++)
+                        {
+                            if(id == Emprestimos.get(j).getCodigoAssociado() && isbn == Emprestimos.get(j).getISBN())
+                                tempoRestante = diferencaData(a.getStatus(), Emprestimos.get(j).getDataEmprestimo());
+                                Emprestimos.remove(j);
+                        }
+
                         if(tempoRestante > 0)
                             vE.showAtrasoMessage(tempoRestante);
                         
