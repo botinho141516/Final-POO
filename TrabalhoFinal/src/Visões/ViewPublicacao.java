@@ -114,14 +114,13 @@ public class ViewPublicacao implements ActionListener{
 
             if("".equals(tIsbnS.getText()))
             {
-                if(cP.searchPublicacao(tTituloS.getText()))
-                    try{
-                        JOptionPane.showMessageDialog(null,cP.showPublicacao(tTituloS.getText()));
-                        
-                    } catch(Exception ex)
-                    {
-                      JOptionPane.showMessageDialog(null,"Nenhuma publicação para esse titulo encontrada");
-                    }
+                try{
+                    JOptionPane.showMessageDialog(null,cP.showPublicacao(tTituloS.getText()));
+
+                } catch(Exception ex)
+                {
+                  JOptionPane.showMessageDialog(null,"Nenhuma publicação para esse titulo encontrada");
+                }
 
 
             }
@@ -130,16 +129,14 @@ public class ViewPublicacao implements ActionListener{
                 try {
                     int id = Integer.parseInt(tIsbnS.getText());
                     
-                    if(cP.searchPublicacao(id))
-                        try {
-                            JOptionPane.showMessageDialog(null,cP.showPublicacao(id));
-                            System.out.println("aaaaaaaaaa");
-                            
-                        } catch(Exception ex)
-                        {
-                            
-                            JOptionPane.showMessageDialog(null,"Nenhuma publicação para esse ISBN encontrada");
-                        }
+                    try {
+                        String s = cP.showPublicacao(id);
+                        JOptionPane.showMessageDialog(null,s);
+
+                    } catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null,"Nenhuma publicação para esse ISBN encontrada");
+                    }
 
 
                 }catch(Exception ex)
