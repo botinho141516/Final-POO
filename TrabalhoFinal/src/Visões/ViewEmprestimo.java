@@ -12,7 +12,7 @@ public class ViewEmprestimo implements ActionListener {
     ControleEmprestimo cE;
 
     JTextField tIsbn = new JTextField(16);
-    JTextField tIdAssociado = new JTextField(16);
+    JTextField tId = new JTextField(16);
     JTextField tData = new JTextField(16);
     JButton empBtn = new JButton("Emprestar");
     JButton devBtn = new JButton("Devolver");
@@ -34,7 +34,7 @@ public class ViewEmprestimo implements ActionListener {
         main.add(isbn);
         main.add(tIsbn);
         main.add(id);
-        main.add(tIdAssociado);
+        main.add(tId);
         main.add(data);
         main.add(tData);
         main.add(blank);
@@ -89,14 +89,14 @@ public class ViewEmprestimo implements ActionListener {
 
         if (e.getSource() == empBtn)
         {
-            if ("".equals(tIsbn.getText()) || "".equals(tIdAssociado.getText()) || "".equals(tData.getText()))
+            if ("".equals(tIsbn.getText()) || "".equals(tId.getText()) || "".equals(tData.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
             } else
             {
                 try
                 {
-                    int idAssociado = Integer.parseInt(tIsbn.getText());
+                    int id = Integer.parseInt(tIsbn.getText());
                     int isbn = Integer.parseInt(tIsbn.getText());
 
                     try
@@ -105,30 +105,19 @@ public class ViewEmprestimo implements ActionListener {
 
                         try
                         {
-                            cE.checkIDassociado(idAssociado);
+                            cE.checkID(id);
                             try
                             {
-                                cE.checkIsbn(isbn,idAssociado);
+                                cE.checkIsbn(isbn);
                                 try
                                 {
-                                    cE.cadastraEmprestimo(idAssociado, isbn, data);
+                                    cE.cadastraEmprestimo(id, isbn, data);
                                 } catch (Exception ex)
-                                {
-                                    JOptionPane.showMessageDialog(null,"Erro ao cadastrar");
-                                }
-                            }catch(Exception ex)
-                            {
-                                JOptionPane.showMessageDialog(null,"ISBN não encontrado");
-                            }
-                            try
-                            {
-                                cE.checkIsbn(isbn, idAssociado);
-  //                              try
                                 {
                                     JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");
                                 }
-                            }
-                            catch (Exception ex)
+
+                            } catch (Exception ex)
                             {
                                 JOptionPane.showMessageDialog(null, "ID não cadastrado");
                             }
@@ -142,7 +131,7 @@ public class ViewEmprestimo implements ActionListener {
                     {
                         JOptionPane.showMessageDialog(null, "Data deve estar no formato dd/mm/aaaa");
                     }
-                        
+
                 } catch (Exception x)
                 {
                     JOptionPane.showMessageDialog(null, "ID e ISBN devem ser numeros inteiros");
@@ -158,16 +147,15 @@ public class ViewEmprestimo implements ActionListener {
             {
                 try
                 {
-                    int idassociado = Integer.parseInt(tIdAssociado.getText());//aqui caralho
                     int isbn = Integer.parseInt(tIsbnD.getText());
                     int id = Integer.parseInt(tIdD.getText());
                     
                     try
                     {
-                        cE.checkIDassociado(idassociado);
+                        cE.checkID(id);
                         try
                         {
-                            cE.checkIsbn(isbn, id);
+                            cE.checkIsbn(isbn);
                             
                             try
                             {
