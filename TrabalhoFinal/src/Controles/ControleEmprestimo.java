@@ -221,6 +221,7 @@ public class ControleEmprestimo implements Serializable {
         cal.setTime(d);
         Exemplar e;
         Associado a = null;
+        int tempoRestante = 0;
 
         for (int i = 0; i < Emprestimos.size(); i++) {
             Emprestimo em = (Emprestimo) Emprestimos.get(i);
@@ -228,7 +229,8 @@ public class ControleEmprestimo implements Serializable {
                 for (int j = 0; j < ctrlasso.getAssociados().size(); j++) {
                     a = (Associado) ctrlasso.getAssociados().get(j);
                     if (a.getCodigo() == id) {
-                        diferencaData(a.getStatus(), d);
+                        tempoRestante = diferencaData(a.getStatus(), d);
+                        break;
                     }
                 }
             }
@@ -238,9 +240,12 @@ public class ControleEmprestimo implements Serializable {
             if (isbn == pu.getISBN()) {
                 for (int k = 0; k < pu.getExemplares().size(); k++) {
                     e = (Exemplar) pu.getExemplares().get(k);
-                    if (id == a.getCodigo()&& e.getFlag() == 1) {
+                    if (id == a.getCodigo() && e.getFlag() == 1) {
                         e.setFlag(0);
+                        if(tempoRestante > 0)
+                            vE.showAtrasoMessage(tempoRestante);
                         ctrlpub.serializaPublicacao();
+                        
                         return;
                     }
                 }

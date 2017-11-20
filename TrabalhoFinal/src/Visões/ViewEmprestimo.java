@@ -184,7 +184,6 @@ public class ViewEmprestimo implements ActionListener {
 
                             } catch (Exception ex)
                             {
-                                ex.printStackTrace();
                                 JOptionPane.showMessageDialog(null, "Associado não possui exemplar com esse ISBN");
                             }
                         } catch (Exception ex)
@@ -215,6 +214,11 @@ public class ViewEmprestimo implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Erro ao deserializar");
                 break;
         }
+    }
+
+    public void showAtrasoMessage(int tempoRestante) {
+        JOptionPane.showMessageDialog(null, "Entrega atrasada, multa de R$"+tempoRestante+",00");
+        
     }
 
 }
