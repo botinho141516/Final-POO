@@ -34,12 +34,12 @@ public class ViewEmprestimo implements ActionListener {
         JLabel blank = new JLabel(" ");
 
         
-        main.add(numero);
-        main.add(tNumeroEx);
         main.add(isbn);
         main.add(tIsbn);
         main.add(id);
         main.add(tIdAssociado);
+        main.add(numero);
+        main.add(tNumeroEx);
         main.add(data);
         main.add(tData);
         main.add(blank);
