@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class ControleEmprestimo implements Serializable {
 
@@ -78,22 +79,24 @@ public class ControleEmprestimo implements Serializable {
         }
     }
 
-    public void checkIsbn(int isbn) throws Exception {
+    public void checkIsbn(int isbn, int numero) throws Exception {
         Publicacao pu;
+        Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
             if (pu.getISBN() == isbn) {
-                //for (int j = 0; j < pu.getExemplares().size(); j++) {
-                //  if (pu.getExemplares().get(j).getFlag() == 1) {
-                return;
+                for (int j = 0; j < pu.getExemplares().size(); j++) {
+                    e = (Exemplar) pu.getExemplares().get(j);
+                    if (e.getFlag() == 1 && e.getNumero() == numero) {
+                        JOptionPane.showMessageDialog(null, "Livro já emprestado");
+                    }
+                }
             }
         }
         throw new Exception();
     }
-    //}
-    //}
 
-    public void checkID(int id) throws Exception {
+    public void checkIDassociado(int id) throws Exception {
         Associado a;
         /*for (int i = 0; i < Emprestimos.size(); i++) {
             Emprestimo em = (Emprestimo) Emprestimos.get(i);

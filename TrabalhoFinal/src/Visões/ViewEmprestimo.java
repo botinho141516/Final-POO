@@ -109,10 +109,10 @@ public class ViewEmprestimo implements ActionListener {
 
                         try
                         {
-                            cE.checkID(idassociado);
+                            cE.checkIDassociado(idassociado);
                             try
                             {
-                                cE.checkIsbn(isbn);
+                                cE.checkIsbn(isbn, id);
   //                              try
                                 {
                                     cE.cadastraEmprestimo(idassociado, id, isbn, data);
@@ -153,15 +153,16 @@ public class ViewEmprestimo implements ActionListener {
             {
                 try
                 {
+                    int idassociado = Integer.parseInt(tIdassociado.getText());//aqui caralho
                     int isbn = Integer.parseInt(tIsbnD.getText());
                     int id = Integer.parseInt(tIdD.getText());
                     
                     try
                     {
-                        cE.checkID(id);
+                        cE.checkIDassociado(idassociado);
                         try
                         {
-                            cE.checkIsbn(isbn);
+                            cE.checkIsbn(isbn, id);
                             
                             try
                             {
