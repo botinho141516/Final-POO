@@ -67,9 +67,9 @@ public class ControleExemplar implements Serializable{
             Exemplar e = Exemplares.get(i);
             
             if(e.getNumero() == numero)
-                return;
+                throw new Exception();
+            
         }
-        throw new Exception();
     }
     
     public void serializaExemplares() throws Exception{
