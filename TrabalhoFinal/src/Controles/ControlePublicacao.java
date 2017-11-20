@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ControlePublicacao implements Serializable {
 
@@ -86,7 +87,7 @@ public class ControlePublicacao implements Serializable {
         }
     }
 
-    public String showPublicacao(String text) {
+    public String showPublicacao(String text) throws Exception{
         String tudo = "";
         for (int i = 0; i < Publicacoes.size(); i++) {
             
@@ -107,10 +108,14 @@ public class ControlePublicacao implements Serializable {
             tudo += emprestados;
             tudo += naoemprestados;
         }
-        return tudo;
+        if("".equals(tudo))
+            throw new Exception();
+        else
+            return tudo;
+        
     }
 
-    public String showPublicacao(int id) {
+    public String showPublicacao(int id) throws Exception{
         try {
             deserializaPublicacao();}
         catch(Exception e){
@@ -138,7 +143,12 @@ public class ControlePublicacao implements Serializable {
             tudo += emprestados;
             tudo += naoemprestados;
         }
-        return tudo;
+        if("".equals(tudo))
+            throw new Exception();
+        
+        else
+            return tudo;
+        
     }
 
     public void deserializaPublicacao() throws Exception {

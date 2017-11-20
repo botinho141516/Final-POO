@@ -105,29 +105,42 @@ public class ViewPublicacao implements ActionListener{
             }
         }
         
+        
+        
+        
+        
         else if(e.getSource() == searchButton)
         {
 
             if("".equals(tIsbnS.getText()))
             {
                 if(cP.searchPublicacao(tTituloS.getText()))
-                    JOptionPane.showMessageDialog(null,cP.showPublicacao(tTituloS.getText()));
+                    try{
+                        JOptionPane.showMessageDialog(null,cP.showPublicacao(tTituloS.getText()));
+                        
+                    } catch(Exception ex)
+                    {
+                      JOptionPane.showMessageDialog(null,"Nenhuma publicação para esse titulo encontrada");
+                    }
 
-                else
-                    JOptionPane.showMessageDialog(null,"Pubicação com esse título não encontrada");
 
             }
             else if("".equals(tTituloS.getText()))
             {
                 try {
                     int id = Integer.parseInt(tIsbnS.getText());
-
                     
                     if(cP.searchPublicacao(id))
-                        JOptionPane.showMessageDialog(null,cP.showPublicacao(id));
+                        try {
+                            JOptionPane.showMessageDialog(null,cP.showPublicacao(id));
+                            System.out.println("aaaaaaaaaa");
+                            
+                        } catch(Exception ex)
+                        {
+                            
+                            JOptionPane.showMessageDialog(null,"Nenhuma publicação para esse ISBN encontrada");
+                        }
 
-                    else
-                        JOptionPane.showMessageDialog(null,"Pubicação com esse ISBN não encontrada");
 
                 }catch(Exception ex)
                 {
@@ -139,11 +152,7 @@ public class ViewPublicacao implements ActionListener{
             {
                 JOptionPane.showMessageDialog(null,"Algum dos parametros de pesquisa devem ser preenchidos");
             }
-            else
-            {
-                if(cP.searchPublicacao(tTituloS.getText()))
-                    JOptionPane.showMessageDialog(null,cP.showPublicacao(tTituloS.getText()));
-            }
+            
         }
         
     }

@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ControleExemplar implements Serializable {
 
@@ -36,12 +37,12 @@ public class ControleExemplar implements Serializable {
         } catch(Exception e)  {
         }
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
-            System.out.println("k");
-            Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
+            Publicacao pu = ctrlpub.getPublicacoes().get(i);
             if (id == pu.getISBN()) {
                 pu.getExemplares().add(new Exemplar(id, numero, preco, 0));
                 try {
                     ctrlpub.serializaPublicacao();
+                    JOptionPane.showMessageDialog(null,"Exemplar cadastrado com sucesso");
                 } catch (Exception ex) {
                     vE.showMessageError(1);
                 }
