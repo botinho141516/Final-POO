@@ -51,7 +51,7 @@ public class ControlePublicacao implements Serializable {
         } catch (Exception e) {
         }//procura por isbn
         for (int i = 0; i < Publicacoes.size(); i++) {
-            Publicacao p = (Publicacao) Publicacoes.get(i);
+            Publicacao p = Publicacoes.get(i);
             if (p.getISBN() == id) {
                 return true;
             }
@@ -66,7 +66,7 @@ public class ControlePublicacao implements Serializable {
             //deserializaPublicacao();
             //Print de teste
             for (int i = 0; i < Publicacoes.size(); i++) {
-                Publicacao a = (Publicacao) Publicacoes.get(i);
+                Publicacao a = Publicacoes.get(i);
                 String s = "Titulo " + a.getTitulo() + " Autor: " + a.getAutor() + " Editora: " + a.getEditora() + " ISBN: " + a.getISBN() + " Exemplares: " + a.getExemplares();
                 System.out.println(s);
             }
@@ -78,7 +78,8 @@ public class ControlePublicacao implements Serializable {
 
     public void checkId(int id) throws Exception { //checa se publicação com id ja existe
         for (int i = 0; i < Publicacoes.size(); i++) {
-            Publicacao a = (Publicacao) Publicacoes.get(i);
+            
+            Publicacao a = Publicacoes.get(i);
             if (a.getISBN() == id) {
                 throw new Exception();
             }
@@ -88,12 +89,13 @@ public class ControlePublicacao implements Serializable {
     public String showPublicacao(String text) {
         String tudo = "";
         for (int i = 0; i < Publicacoes.size(); i++) {
+            
             String emprestados = "", naoemprestados = "";
             Exemplar e;
-            Publicacao p = (Publicacao) Publicacoes.get(i);
+            Publicacao p = Publicacoes.get(i);
             if (p.getTitulo().equals(text)) {
                 for (int j = 0; j < p.getExemplares().size(); j++) {
-                    e = (Exemplar) p.getExemplares().get(j);
+                    e = p.getExemplares().get(j);
                     if (e.getFlag() == 1) {
                         emprestados += "Emprestado: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
                     }
@@ -111,15 +113,20 @@ public class ControlePublicacao implements Serializable {
     public String showPublicacao(int id) {
         try {
             deserializaPublicacao();}
-        catch(Exception e){}
+        catch(Exception e){
+            vP.showErrorMessage(1);
+        }
         String tudo = "";
         for (int i = 0; i < Publicacoes.size(); i++) {
             String emprestados = "", naoemprestados = "";
             Exemplar e;
             Publicacao p = (Publicacao) Publicacoes.get(i);
+            
             if (p.getISBN() == id) {
                 for (int j = 0; j < p.getExemplares().size(); j++) {
+                    
                     e = (Exemplar) p.getExemplares().get(j);
+                    
                     if (e.getFlag() == 1) {
                         emprestados += "Emprestado: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
                     }

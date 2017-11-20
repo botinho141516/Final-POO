@@ -9,7 +9,7 @@ public class Exemplar implements Serializable{
     private double preco;
     private int flag = 0;
 
-    public Exemplar(int numero, int ISBN, double preco, int flag) {
+    public Exemplar(int ISBN, int numero, double preco, int flag) {
         this.numero = numero;
         this.ISBN = ISBN;
         this.preco = preco;

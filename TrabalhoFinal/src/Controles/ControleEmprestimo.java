@@ -61,7 +61,7 @@ public class ControleEmprestimo implements Serializable {
         deserializaEmprestimos();
         Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
-            Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
+            Publicacao pu = ctrlpub.getPublicacoes().get(i);
             if (isbn == pu.getISBN()) {
                 for (int k = 0; k < pu.getExemplares().size(); k++) {
                     e = (Exemplar) pu.getExemplares().get(k);
@@ -83,7 +83,8 @@ public class ControleEmprestimo implements Serializable {
         Publicacao pu;
         Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
-            pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
+            pu = ctrlpub.getPublicacoes().get(i);
+            
             if (pu.getISBN() == isbn) {
                 for (int j = 0; j < pu.getExemplares().size(); j++) {
                     e = (Exemplar) pu.getExemplares().get(j);
