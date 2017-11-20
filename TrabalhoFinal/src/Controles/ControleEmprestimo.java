@@ -4,7 +4,9 @@ import Entidades.Associado;
 import Entidades.Emprestimo;
 import Entidades.Exemplar;
 import Entidades.Publicacao;
+import Visões.ViewAssociado;
 import Visões.ViewEmprestimo;
+import Visões.ViewPublicacao;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,20 +17,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class ControleEmprestimo implements Serializable {
 
-    ControleAssociado ctrlasso;
-    ControlePublicacao ctrlpub;
+    ViewAssociado a = new ViewAssociado();
+    ViewPublicacao pa = new ViewPublicacao();
+    ControleAssociado ctrlasso = new ControleAssociado(a);
+    ControlePublicacao ctrlpub = new ControlePublicacao(pa);
     ViewEmprestimo vE;
     ArrayList<Emprestimo> Emprestimos = new ArrayList<>();
 
     public ControleEmprestimo(ViewEmprestimo view) {
-        try
-        {
+        try {
             deserializaEmprestimos();
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             vE.showMessageError(1);
         }
         vE = view;
@@ -54,7 +57,8 @@ public class ControleEmprestimo implements Serializable {
         }
     }
 
-    public void cadastraEmprestimo(int id, int isbn, Date data) throws Exception {
+    public void cadastraEmprestimo(int idassociado, int id, int isbn, Date data) throws Exception {
+        deserializaEmprestimos();
         Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
             Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
@@ -66,8 +70,7 @@ public class ControleEmprestimo implements Serializable {
                         Emprestimos.add(new Emprestimo(isbn, data, id));
                         try {
                             serializaEmprestimos();
-                        }catch(Exception ex)
-                        {
+                        } catch (Exception ex) {
                             vE.showMessageError(1);
                         }
                     }
@@ -76,86 +79,83 @@ public class ControleEmprestimo implements Serializable {
         }
     }
 
-    public void checkIsbn(int isbn) throws Exception {
-
+    public void checkIsbn(int isbn, int numero) throws Exception {
+        Publicacao pu;
+        Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
-
-            Publicacao pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
-            if (isbn == pu.getISBN()) {
+            pu = (Publicacao) ctrlpub.getPublicacoes().get(i);
+            if (pu.getISBN() == isbn) {
                 for (int j = 0; j < pu.getExemplares().size(); j++) {
-
-                    if (pu.getExemplares().get(j).getFlag() == 1) {
-                        return;
-                    } else {
-                        throw new Exception();
+                    e = (Exemplar) pu.getExemplares().get(j);
+                    if (e.getFlag() == 1 && e.getNumero() == numero) {
+                        JOptionPane.showMessageDialog(null, "Livro já emprestado");
                     }
                 }
             }
         }
+        throw new Exception();
     }
 
-    public void checkID(int id) throws Exception {
+    public void checkIDassociado(int id) throws Exception {
         Associado a;
-        for (int i = 0; i < Emprestimos.size(); i++) {
+        /*for (int i = 0; i < Emprestimos.size(); i++) {
             Emprestimo em = (Emprestimo) Emprestimos.get(i);
-            if (em.getCodigoAssociado() == id) {
-                for (int j = 0; j < ctrlasso.getAssociados().size(); j++) {
-                    a = (Associado) ctrlasso.getAssociados().get(j);
-                    if (a.getCodigo() == id) {
-                        return;
-                    } else {
-                        throw new Exception();
-                    }
+            if (em.getCodigoAssociado() == id)*/ {
+            for (int j = 0; j < ctrlasso.getAssociados().size(); j++) {
+                a = (Associado) ctrlasso.getAssociados().get(j);
+                if (a.getCodigo() == id) {
+                    return;
                 }
+
             }
         }
+        throw new Exception();
     }
-    
-    public boolean checkIfAtraso(String cargo, Date dia)
-    {
-        if(diferencaData(cargo,dia) > 0)
+
+    public boolean checkIfAtraso(String cargo, Date dia) {
+        if (diferencaData(cargo, dia) > 0) {
             return true;
-        
+        }
+
         return false;
     }
 
     public int diferencaData(String cargo, Date dEmprestimo) {
         int diasAtraso = 0;
         int diasDisponiveis = 0;
-        
-        switch(cargo)
-        {
+
+        switch (cargo) {
             case " Aluno Graduação ":
                 diasDisponiveis = 7;
                 break;
             case " Aluno Pós-Graduação ":
                 diasDisponiveis = 10;
-                
+
                 break;
-                
+
             case " Professor ":
                 diasDisponiveis = 14;
                 break;
-                
+
             default:;
                 System.out.println("ta errado");
                 break;
         }
-        
+
         Date now = new Date();
-        
+
         //in milliseconds
         long dif = now.getTime() - dEmprestimo.getTime();
-        
-        dif = dif/(1000*60*60*24); //transforma milisegundos em dias
-        
-        if(dif > diasDisponiveis)
-            diasAtraso = (int)dif - diasDisponiveis;
+
+        dif = dif / (1000 * 60 * 60 * 24); //transforma milisegundos em dias
+
+        if (dif > diasDisponiveis) {
+            diasAtraso = (int) dif - diasDisponiveis;
+        }
 
         return diasAtraso;
     }
 
-    
     public void devolveExemplar(int isbn, int id) throws Exception {
         Date d = new Date();
         Calendar cal = Calendar.getInstance();
@@ -188,46 +188,45 @@ public class ControleEmprestimo implements Serializable {
     }
 
     public String showAtrasados() throws Exception {
+        try {
+            serializaEmprestimos();
+        } catch (Exception ex) {
+        }
         String lista = "Publicações atrasadas:\n\n";
-        
+
         Associado a = checkAtraso();
-        
-        if(a != null)
-        {
-            lista+=a.getCodigo() + " - " + a.getName() + ": ";
-            for(int i=0;i<Emprestimos.size();i++)
-            {
-                if(a.getCodigo() == Emprestimos.get(i).getCodigoAssociado())
-                {
-                    if(checkIfAtraso(a.getStatus(), Emprestimos.get(i).getDataEmprestimo()))
-                        lista+= "\t\t" + Emprestimos.get(i).getISBN() + " - " + 
-                                diferencaData(a.getStatus(),Emprestimos.get(i).getDataEmprestimo()) + "\n";
+
+        if (a != null) {
+            lista += a.getCodigo() + " - " + a.getName() + ": ";
+            for (int i = 0; i < Emprestimos.size(); i++) {
+                if (a.getCodigo() == Emprestimos.get(i).getCodigoAssociado()) {
+                    if (checkIfAtraso(a.getStatus(), Emprestimos.get(i).getDataEmprestimo())) {
+                        lista += "\t\t" + Emprestimos.get(i).getISBN() + " - "
+                                + diferencaData(a.getStatus(), Emprestimos.get(i).getDataEmprestimo()) + "\n";
+                    }
                 }
             }
         }
-        
+
         return lista;
     }
-    
-    public Associado checkAtraso()
-    {
-        for(int i=0;i<Emprestimos.size();i++)
-        {
+
+    public Associado checkAtraso() {
+        for (int i = 0; i < Emprestimos.size(); i++) {
             Emprestimo e = Emprestimos.get(i);
-            for(int j=0;j<ctrlasso.getAssociados().size();j++)
-            {
+            for (int j = 0; j < ctrlasso.getAssociados().size(); j++) {
                 Associado a = ctrlasso.getAssociados().get(j);
 
-                if(a.getCodigo() == e.getCodigoAssociado())
-                {
-                    if(checkIfAtraso(a.getStatus(), e.getDataEmprestimo()))
+                if (a.getCodigo() == e.getCodigoAssociado()) {
+                    if (checkIfAtraso(a.getStatus(), e.getDataEmprestimo())) {
                         return a;
+                    }
                 }
             }
         }
         return null;
     }
-    
+
     public void serializaEmprestimos() throws Exception {
         try {
             FileOutputStream objFileOS = new FileOutputStream("Emprestimos.dat");
@@ -236,7 +235,7 @@ public class ControleEmprestimo implements Serializable {
             objOS.flush();
             objOS.close();
         } catch (Exception e) {
-                throw new Exception();
+            throw new Exception();
         }
     }
 
@@ -251,8 +250,8 @@ public class ControleEmprestimo implements Serializable {
 
                 objIS.close();
             }
-             } catch (Exception e) {
-                 throw new Exception();
+        } catch (Exception e) {
+            throw new Exception();
         }
     }
 }

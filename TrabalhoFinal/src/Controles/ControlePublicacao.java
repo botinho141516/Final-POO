@@ -25,12 +25,17 @@ public class ControlePublicacao implements Serializable {
         vP = view;
         try {
             deserializaPublicacao();
+            System.out.println(Publicacoes.size());
         } catch (Exception e) {
             vP.showErrorMessage(0);
         }
     }
 
     public boolean searchPublicacao(String titulo) {    //procura por titulo
+        try {
+            deserializaPublicacao();
+        } catch (Exception e) {
+        }
         for (int i = 0; i < Publicacoes.size(); i++) {
             Publicacao p = (Publicacao) Publicacoes.get(i);
             if (p.getTitulo().equals(titulo)) {
@@ -40,7 +45,11 @@ public class ControlePublicacao implements Serializable {
         return false;
     }
 
-    public boolean searchPublicacao(int id) {   //procura por isbn
+    public boolean searchPublicacao(int id) {
+        try {
+            deserializaPublicacao();
+        } catch (Exception e) {
+        }//procura por isbn
         for (int i = 0; i < Publicacoes.size(); i++) {
             Publicacao p = (Publicacao) Publicacoes.get(i);
             if (p.getISBN() == id) {
@@ -50,12 +59,17 @@ public class ControlePublicacao implements Serializable {
         return false;
     }
 
-    
-
-    public void cadastraPublicacao(int id, String titulo, String autor, String editora) throws Exception{
+    public void cadastraPublicacao(int id, String titulo, String autor, String editora) throws Exception {
         try {
             Publicacoes.add(new Publicacao(id, titulo, autor, editora));
             serializaPublicacao();
+            //deserializaPublicacao();
+            //Print de teste
+            for (int i = 0; i < Publicacoes.size(); i++) {
+                Publicacao a = (Publicacao) Publicacoes.get(i);
+                String s = "Titulo " + a.getTitulo() + " Autor: " + a.getAutor() + " Editora: " + a.getEditora() + " ISBN: " + a.getISBN() + " Exemplares: " + a.getExemplares();
+                System.out.println(s);
+            }
 
         } catch (Exception ex) {
             throw new Exception();
@@ -81,25 +95,23 @@ public class ControlePublicacao implements Serializable {
                 for (int j = 0; j < p.getExemplares().size(); j++) {
                     e = (Exemplar) p.getExemplares().get(j);
                     if (e.getFlag() == 1) {
-                        emprestados += "Emprestados: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
+                        emprestados += "Emprestado: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
                     }
                     if (e.getFlag() == 0) {
-                        naoemprestados += "Não emprestados: \nISBN: " + e.getISBN() + " Número: " + e.getNumero();
+                        naoemprestados += "Não emprestado: \nISBN: " + e.getISBN() + " Número: " + e.getNumero()+ "\n\n";
                     }
                 }
             }
             tudo += emprestados;
             tudo += naoemprestados;
         }
-        
-        if("".equals(tudo))
-            return "Nenhum Exemplar Cadastrado para esse Título";
-
-
         return tudo;
     }
 
     public String showPublicacao(int id) {
+        try {
+            deserializaPublicacao();}
+        catch(Exception e){}
         String tudo = "";
         for (int i = 0; i < Publicacoes.size(); i++) {
             String emprestados = "", naoemprestados = "";
@@ -109,23 +121,19 @@ public class ControlePublicacao implements Serializable {
                 for (int j = 0; j < p.getExemplares().size(); j++) {
                     e = (Exemplar) p.getExemplares().get(j);
                     if (e.getFlag() == 1) {
-                        emprestados += "Emprestados: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
+                        emprestados += "Emprestado: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
                     }
                     if (e.getFlag() == 0) {
-                        naoemprestados += "Não emprestados: \nISBN: " + e.getISBN() + " Número: " + e.getNumero();
+                        naoemprestados += "Não emprestado: \nISBN: " + e.getISBN() + " Número: " + e.getNumero() + "\n\n";
                     }
                 }
             }
             tudo += emprestados;
             tudo += naoemprestados;
         }
-        if("".equals(tudo))
-            return "Nenhum Exemplar Cadastrado para esse Título";
-        
         return tudo;
     }
-    
-    
+
     public void deserializaPublicacao() throws Exception {
 
         try {
@@ -141,7 +149,7 @@ public class ControlePublicacao implements Serializable {
             throw new Exception();
         }
     }
-    
+
     public void serializaPublicacao() throws Exception {
         try {
             FileOutputStream objFileOS = new FileOutputStream("Publicacoes.dat");

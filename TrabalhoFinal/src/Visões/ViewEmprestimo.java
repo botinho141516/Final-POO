@@ -11,6 +11,7 @@ public class ViewEmprestimo implements ActionListener {
 
     ControleEmprestimo cE;
 
+    JTextField tIdassociado = new JTextField(16);
     JTextField tIsbn = new JTextField(16);
     JTextField tId = new JTextField(16);
     JTextField tData = new JTextField(16);
@@ -26,11 +27,14 @@ public class ViewEmprestimo implements ActionListener {
 
         JPanel main = new JPanel(new FlowLayout(1, 5000, 8));
 
+        JLabel idassociado = new JLabel("ID do associado");
         JLabel isbn = new JLabel("ISBN");
-        JLabel id = new JLabel("ID do cliente ");
+        JLabel id = new JLabel("Número do livro ");
         JLabel data = new JLabel("Data do Emprestimo");
         JLabel blank = new JLabel(" ");
 
+        main.add(idassociado);
+        main.add(tIdassociado);
         main.add(isbn);
         main.add(tIsbn);
         main.add(id);
@@ -86,17 +90,17 @@ public class ViewEmprestimo implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == empBtn)
         {
-            if ("".equals(tIsbn.getText()) || "".equals(tId.getText()) || "".equals(tData.getText()))
+            if ("".equals(tIdassociado.getText()) || "".equals(tIsbn.getText()) || "".equals(tId.getText()) || "".equals(tData.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos");
             } else
             {
                 try
                 {
-                    int id = Integer.parseInt(tIsbn.getText());
+                    int idassociado = Integer.parseInt(tIdassociado.getText());//aqui caralho
+                    int id = Integer.parseInt(tId.getText());
                     int isbn = Integer.parseInt(tIsbn.getText());
 
                     try
@@ -105,26 +109,28 @@ public class ViewEmprestimo implements ActionListener {
 
                         try
                         {
-                            cE.checkID(id);
+                            cE.checkIDassociado(idassociado);
                             try
                             {
-                                cE.checkIsbn(isbn);
-                                try
+                                cE.checkIsbn(isbn, id);
+  //                              try
                                 {
-                                    cE.cadastraEmprestimo(id, isbn, data);
-                                } catch (Exception ex)
-                                {
-                                    JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");
+                                    cE.cadastraEmprestimo(idassociado, id, isbn, data);
+    //                            } catch (Exception ex)
+      //                          {
+                                    //JOptionPane.showMessageDialog(null, "back ta errado(deleta isso depois de dar tudo certo, linha 112)");
                                 }
 
                             } catch (Exception ex)
                             {
-                                JOptionPane.showMessageDialog(null, "ID não cadastrado");
+                                ex.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
                             }
 
                         } catch (Exception ex)
                         {
-                            JOptionPane.showMessageDialog(null, "ISBN não cadastrado");
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "ID não cadastrado");
                         }
 
                     } catch (Exception ex)
@@ -147,15 +153,16 @@ public class ViewEmprestimo implements ActionListener {
             {
                 try
                 {
+                    int idassociado = Integer.parseInt(tIdassociado.getText());//aqui caralho
                     int isbn = Integer.parseInt(tIsbnD.getText());
                     int id = Integer.parseInt(tIdD.getText());
                     
                     try
                     {
-                        cE.checkID(id);
+                        cE.checkIDassociado(idassociado);
                         try
                         {
-                            cE.checkIsbn(isbn);
+                            cE.checkIsbn(isbn, id);
                             
                             try
                             {
