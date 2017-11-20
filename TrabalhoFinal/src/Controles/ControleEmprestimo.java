@@ -56,7 +56,7 @@ public class ControleEmprestimo implements Serializable {
         }
     }
 
-    public void cadastraEmprestimo(int id, int isbn, Date data) throws Exception {
+    public void cadastraEmprestimo(int idassociado, int id, int isbn, Date data) throws Exception {
         deserializaEmprestimos();
         Exemplar e;
         for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {

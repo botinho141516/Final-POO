@@ -109,6 +109,9 @@ public class ControlePublicacao implements Serializable {
     }
 
     public String showPublicacao(int id) {
+        try {
+            deserializaPublicacao();}
+        catch(Exception e){}
         String tudo = "";
         for (int i = 0; i < Publicacoes.size(); i++) {
             String emprestados = "", naoemprestados = "";
