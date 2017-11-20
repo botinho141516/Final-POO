@@ -42,12 +42,29 @@ public class ControleExemplar implements Serializable {
                 pu.getExemplares().add(new Exemplar(id, numero, preco, 0));
                 try {
                     ctrlpub.serializaPublicacao();
-                    JOptionPane.showMessageDialog(null,"Exemplar cadastrado com sucesso");
                 } catch (Exception ex) {
                     vE.showMessageError(1);
                 }
             }
         }
+    }
+    
+    public void checkNumero(int id,int numero) throws Exception {
+        ArrayList<Exemplar> e = null;
+        
+        for (int i = 0; i < ctrlpub.getPublicacoes().size(); i++) {
+            Publicacao a = ctrlpub.getPublicacoes().get(i);
+            if(id == a.getISBN())
+                e = a.getExemplares();
+        }
+        for(int i=0;i<e.size();i++)
+        {
+            if (e.get(i).getNumero() == numero) {
+                throw new Exception();
+            }
+        }
+        
+        
     }
 
     public void checkId(int isbn) throws Exception {    //procura se o ID que foi digitado realmente existe
